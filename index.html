@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>香氛罗盘 · 找到属于你的那一支香水</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink-50:#fff7fa; --pink-100:#ffeaf3; --pink-200:#ffd7e7; --pink-300:#ffbcd7;
+  --rose:#e97ba4; --rose-deep:#c9568a; --rose-dark:#a8416e;
+  --plum:#43202f; --plum-2:#6d3c52; --plum-3:#8d6274;
+  --gold:#c8a05c; --gold-soft:#efdcb8; --cream:#fffaf6;
+  --sh-soft:0 12px 30px -16px rgba(160,70,110,.35);
+  --sh:0 22px 48px -22px rgba(160,70,110,.45);
+  --serif:'Noto Serif SC','Songti SC','STSong',Georgia,serif;
+  --sans:'Inter','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,sans-serif;
+  --en:'Cormorant Garamond',Georgia,serif;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans); color:var(--plum); min-height:100vh; overflow-x:hidden;
+  background:
+    radial-gradient(1100px 650px at 8% -12%, #ffe4ef 0%, transparent 62%),
+    radial-gradient(900px 600px at 102% 2%, #fdeee2 0%, transparent 58%),
+    radial-gradient(1000px 780px at 50% 118%, #ffe8f4 0%, transparent 62%),
+    linear-gradient(180deg,#fffbfd 0%,#fff6fa 55%,#fdf0f6 100%);
+  background-attachment:fixed;
+}
+/* ---------- 背景装饰 ---------- */
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.aurora i{position:absolute;display:block;border-radius:50%;filter:blur(60px);opacity:.55}
+.aurora i:nth-child(1){width:420px;height:420px;left:-120px;top:8%;background:#ffc9de;animation:float1 18s ease-in-out infinite}
+.aurora i:nth-child(2){width:340px;height:340px;right:-100px;top:28%;background:#ffe2c9;animation:float2 22s ease-in-out infinite}
+.aurora i:nth-child(3){width:300px;height:300px;left:35%;bottom:-140px;background:#ffd4ea;animation:float1 26s ease-in-out infinite reverse}
+.aurora i:nth-child(4){width:200px;height:200px;right:22%;top:6%;background:#f6d9ff;opacity:.4;animation:float2 20s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-30px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-50px,26px)}}
+.sparkles{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:radial-gradient(1.6px 1.6px at 12% 22%, rgba(255,255,255,.9), transparent),
+    radial-gradient(1.4px 1.4px at 78% 12%, rgba(255,255,255,.85), transparent),
+    radial-gradient(1.8px 1.8px at 62% 74%, rgba(255,255,255,.8), transparent),
+    radial-gradient(1.3px 1.3px at 26% 82%, rgba(255,255,255,.85), transparent),
+    radial-gradient(1.5px 1.5px at 90% 56%, rgba(255,255,255,.75), transparent);
+  opacity:.9}
+/* ---------- 顶栏 ---------- */
+.topbar{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:20px clamp(16px,4vw,54px);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;cursor:pointer;background:none;border:0;font:inherit;color:inherit;text-align:left}
+.brand svg{width:42px;height:42px;filter:drop-shadow(0 6px 10px rgba(200,90,140,.28))}
+.brand h1{font-family:var(--serif);font-size:19px;letter-spacing:.14em;font-weight:600;line-height:1.1}
+.brand p{font-family:var(--en);font-size:11px;letter-spacing:.34em;color:var(--rose-deep);text-transform:uppercase;margin-top:3px}
+.nav{display:flex;gap:10px;align-items:center}
+.chipbtn{font:inherit;font-size:13px;padding:9px 18px;border-radius:999px;cursor:pointer;
+  border:1px solid var(--pink-200);background:rgba(255,255,255,.75);color:var(--plum-2);
+  backdrop-filter:blur(8px);transition:.25s}
+.chipbtn:hover{border-color:var(--rose);color:var(--rose-dark);box-shadow:0 8px 18px -10px rgba(200,90,140,.6);transform:translateY(-1px)}
+/* ---------- 主容器 ---------- */
+main{position:relative;z-index:3;width:min(1180px,92vw);margin:0 auto;padding-bottom:70px}
+.view{animation:rise .55s cubic-bezier(.22,.9,.28,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+/* ---------- Hero ---------- */
+.hero{text-align:center;padding:clamp(18px,4vw,44px) 0 clamp(28px,5vw,52px)}
+.eyebrow{display:inline-block;font-size:12px;letter-spacing:.28em;color:var(--rose-deep);
+  border:1px solid var(--pink-200);background:rgba(255,255,255,.7);border-radius:999px;padding:7px 18px;margin-bottom:22px}
+.hero-title{font-family:var(--serif);font-weight:600;font-size:clamp(30px,5.4vw,54px);line-height:1.32;letter-spacing:.02em}
+.hero-title em{font-style:normal;position:relative;color:var(--rose-dark);white-space:nowrap}
+.hero-title em::after{content:'';position:absolute;left:0;right:0;bottom:2px;height:9px;
+  background:linear-gradient(90deg,rgba(255,188,215,.75),rgba(255,215,231,.35));border-radius:8px;z-index:-1}
+.hero-sub{max-width:660px;margin:22px auto 0;font-size:15px;line-height:2;color:var(--plum-2)}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.btn{font:inherit;font-size:14.5px;padding:14px 30px;border-radius:999px;cursor:pointer;border:1px solid transparent;transition:.28s;letter-spacing:.04em}
+.btn-primary{color:#fff;background:linear-gradient(135deg,#f08cb2,#d9628f 55%,#c9568a);
+  box-shadow:0 16px 30px -14px rgba(200,86,138,.85)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 38px -14px rgba(200,86,138,.95)}
+.btn-ghost{background:rgba(255,255,255,.8);border-color:var(--pink-200);color:var(--plum-2)}
+.btn-ghost:hover{border-color:var(--rose);color:var(--rose-dark);transform:translateY(-2px)}
+.hero-notes{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:34px;font-size:12.5px;color:var(--plum-3);letter-spacing:.1em}
+.hero-notes span{display:flex;align-items:center;gap:8px}
+.hero-notes span::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--rose);display:inline-block}
+/* ---------- 香调卡片网格 ---------- */
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin:14px 0 22px;flex-wrap:wrap}
+.section-head h2{font-family:var(--serif);font-size:23px;font-weight:600;letter-spacing:.06em}
+.section-head p{font-size:13px;color:var(--plum-3)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:18px}
+.fam-card{position:relative;text-align:left;font:inherit;color:inherit;cursor:pointer;
+  border:1px solid rgba(255,255,255,.9);border-radius:22px;padding:22px 20px 20px;
+  background:linear-gradient(160deg,rgba(255,255,255,.92),rgba(255,240,246,.78));
+  box-shadow:var(--sh-soft);backdrop-filter:blur(10px);transition:.32s cubic-bezier(.22,.9,.28,1);
+  display:flex;flex-direction:column;gap:9px;overflow:hidden;animation:rise .5s both;animation-delay:var(--d,0ms)}
+.fam-card::before{content:'';position:absolute;inset:0;border-radius:22px;padding:1px;
+  background:linear-gradient(150deg,rgba(255,188,215,.9),rgba(255,255,255,0),rgba(239,220,184,.8));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.32s}
+.fam-card::after{content:'';position:absolute;right:-40px;top:-40px;width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,188,215,.55),transparent 70%);transition:.4s}
+.fam-card:hover{transform:translateY(-7px);box-shadow:var(--sh);border-color:rgba(255,255,255,1)}
+.fam-card:hover::before{opacity:1}
+.fam-card:hover::after{transform:scale(1.35)}
+.fc-icon{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:22px;
+  background:linear-gradient(140deg,#fff,#ffe6f0);box-shadow:inset 0 0 0 1px rgba(255,255,255,.9),0 8px 16px -10px rgba(200,86,138,.7)}
+.fc-name{font-family:var(--serif);font-size:18.5px;font-weight:600;letter-spacing:.06em;display:flex;align-items:baseline;gap:8px}
+.fc-name em{font-family:var(--en);font-style:italic;font-size:12.5px;color:var(--rose-deep);letter-spacing:.06em}
+.fc-tag{font-size:12.8px;line-height:1.75;color:var(--plum-3)}
+.fc-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.fc-chips i{font-style:normal;font-size:11px;padding:4px 9px;border-radius:999px;background:rgba(255,188,215,.28);color:var(--rose-dark)}
+.fc-cta{margin-top:8px;font-size:12.5px;color:var(--rose-deep);letter-spacing:.08em;opacity:.85;transition:.3s}
+.fam-card:hover .fc-cta{letter-spacing:.16em;opacity:1}
+/* ---------- 香调详情 ---------- */
+.backlink{font:inherit;background:none;border:0;cursor:pointer;color:var(--plum-3);font-size:13px;padding:6px 0;letter-spacing:.06em;transition:.25s}
+.backlink:hover{color:var(--rose-dark)}
+.fam-hero{margin-top:18px;border-radius:28px;padding:clamp(24px,4vw,44px);position:relative;overflow:hidden;
+  background:linear-gradient(150deg,rgba(255,255,255,.95),rgba(255,235,244,.85));border:1px solid #fff;box-shadow:var(--sh-soft)}
+.fam-hero::after{content:'';position:absolute;right:-70px;bottom:-90px;width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,188,215,.6),transparent 68%)}
+.fh-top{display:flex;gap:18px;align-items:center;flex-wrap:wrap;position:relative;z-index:2}
+.fh-icon{width:68px;height:68px;border-radius:20px;display:grid;place-items:center;font-size:32px;
+  background:linear-gradient(140deg,#fff,#ffe1ee);box-shadow:0 12px 24px -14px rgba(200,86,138,.8)}
+.fh-title{font-family:var(--serif);font-size:clamp(24px,3.4vw,34px);font-weight:600;letter-spacing:.08em}
+.fh-title em{font-family:var(--en);font-style:italic;font-size:16px;color:var(--rose-deep);letter-spacing:.12em;margin-left:10px;font-weight:500}
+.fh-tag{font-size:13.5px;color:var(--plum-2);margin-top:8px;letter-spacing:.04em}
+.fh-body{position:relative;z-index:2;margin-top:22px;display:grid;gap:12px}
+.fh-body p{font-size:14.6px;line-height:2.1;color:var(--plum-2);text-align:justify}
+.fh-body p.first::first-letter{font-family:var(--serif);font-size:34px;float:left;line-height:1;padding:6px 10px 0 0;color:var(--rose-deep)}
+.fh-meta{position:relative;z-index:2;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:26px}
+.mbox{background:rgba(255,255,255,.72);border:1px solid #fff;border-radius:18px;padding:16px 18px}
+.mbox h4{font-family:var(--serif);font-size:13.5px;letter-spacing:.12em;color:var(--rose-dark);margin-bottom:10px;font-weight:600}
+.mbox .tags{display:flex;gap:7px;flex-wrap:wrap}
+.mbox .tags i{font-style:normal;font-size:11.5px;padding:5px 11px;border-radius:999px;background:linear-gradient(135deg,#fff,#ffe9f2);
+  box-shadow:inset 0 0 0 1px rgba(255,188,215,.6);color:var(--plum-2)}
+.mbox .tags i.gold{background:linear-gradient(135deg,#fff,#fdf1dd);box-shadow:inset 0 0 0 1px var(--gold-soft);color:#8a6b2e}
+.axes-list{display:grid;gap:9px}
+.axes-list div{font-size:13px;color:var(--plum-2);display:flex;align-items:center;gap:9px}
+.axes-list div b{width:6px;height:6px;border-radius:50%;background:var(--rose);flex:none}
+/* 预览香水 */
+.preview{margin-top:34px}
+.preview h3{font-family:var(--serif);font-size:16px;letter-spacing:.1em;margin-bottom:14px;font-weight:600}
+.pv-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
+.pv{border:1px solid #fff;background:rgba(255,255,255,.68);border-radius:16px;padding:14px 16px;transition:.3s}
+.pv:hover{background:#fff;transform:translateY(-3px);box-shadow:var(--sh-soft)}
+.pv h5{font-family:var(--serif);font-size:14.5px;font-weight:600;letter-spacing:.04em}
+.pv span{display:block;font-size:12.5px;color:var(--plum-3);margin-top:6px;line-height:1.7}
+.pv i{font-style:normal;font-size:10.5px;padding:3px 8px;border-radius:999px;background:rgba(255,188,215,.3);color:var(--rose-dark);display:inline-block;margin-top:9px}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px;align-items:center}
+.hint{font-size:12.5px;color:var(--plum-3)}
+/* ---------- 测试 ---------- */
+.quiz{max-width:760px;margin:22px auto 0}
+.quiz-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.qcount{font-size:12.5px;letter-spacing:.16em;color:var(--rose-deep)}
+.bar{height:6px;border-radius:999px;background:rgba(255,188,215,.3);overflow:hidden;margin-bottom:34px}
+.bar span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#ffc2da,#e97ba4);transition:width .45s cubic-bezier(.22,.9,.28,1)}
+.qcard{background:linear-gradient(160deg,rgba(255,255,255,.95),rgba(255,240,247,.82));border:1px solid #fff;
+  border-radius:26px;padding:clamp(22px,3.6vw,38px);box-shadow:var(--sh-soft);backdrop-filter:blur(10px)}
+.qtext{font-family:var(--serif);font-size:clamp(19px,2.5vw,24px);font-weight:600;line-height:1.7;letter-spacing:.03em;margin-bottom:26px}
+.qtext::before{content:'Q';font-family:var(--en);color:var(--rose);margin-right:10px;font-size:1.1em}
+.opts{display:grid;gap:12px}
+.opt{font:inherit;text-align:left;cursor:pointer;display:flex;gap:14px;align-items:flex-start;
+  padding:16px 20px;border-radius:16px;border:1px solid rgba(255,188,215,.55);background:rgba(255,255,255,.7);
+  color:var(--plum);transition:.26s cubic-bezier(.22,.9,.28,1);line-height:1.7;font-size:14.6px}
+.opt b{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-family:var(--en);
+  font-size:13px;font-weight:600;background:rgba(255,188,215,.35);color:var(--rose-dark);transition:.26s}
+.opt:hover{border-color:var(--rose);background:#fff;transform:translateX(5px);box-shadow:0 14px 26px -18px rgba(200,86,138,.9)}
+.opt:hover b{background:var(--rose);color:#fff}
+.opt.picked{border-color:var(--rose-dark);background:linear-gradient(120deg,#fff,#ffe6f1);transform:translateX(5px)}
+.opt.picked b{background:var(--rose-dark);color:#fff}
+.quiz-foot{margin-top:22px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+/* ---------- 结果 ---------- */
+.result-head{text-align:center;padding:clamp(14px,3vw,30px) 0 26px}
+.result-head .eyebrow{margin-bottom:16px}
+.result-head h2{font-family:var(--serif);font-size:clamp(24px,3.6vw,34px);font-weight:600;letter-spacing:.06em}
+.result-head p{margin-top:14px;font-size:14.4px;color:var(--plum-2);line-height:2}
+.profile{display:grid;gap:22px;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:start;margin-bottom:34px}
+@media(max-width:820px){.profile{grid-template-columns:1fr}}
+.panel{background:linear-gradient(160deg,rgba(255,255,255,.9),rgba(255,240,247,.75));border:1px solid #fff;
+  border-radius:24px;padding:24px 26px;box-shadow:var(--sh-soft)}
+.panel h3{font-family:var(--serif);font-size:16px;font-weight:600;letter-spacing:.1em;margin-bottom:18px}
+.axisbar{display:grid;gap:14px}
+.axisbar .row{display:grid;gap:7px}
+.axisbar .lbl{display:flex;justify-content:space-between;font-size:12.8px;color:var(--plum-2)}
+.axisbar .lbl em{font-style:normal;color:var(--rose-deep);font-size:12px}
+.axisbar .track{height:8px;border-radius:999px;background:rgba(255,188,215,.28);overflow:hidden}
+.axisbar .track span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#ffc9df,#e2749f);transition:width .8s cubic-bezier(.22,.9,.28,1)}
+.axisbar .row.top .track span{background:linear-gradient(90deg,#f6a9c6,#c9568a)}
+.pcard{border-radius:26px;padding:clamp(22px,3.4vw,34px);position:relative;overflow:hidden;margin-bottom:22px;
+  background:linear-gradient(155deg,rgba(255,255,255,.96),rgba(255,238,246,.86));border:1px solid #fff;box-shadow:var(--sh)}
+.pcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,#ffc2da,#c9568a)}
+.pcard.second{background:linear-gradient(155deg,rgba(255,255,255,.9),rgba(253,244,233,.8))}
+.pcard.second::before{background:linear-gradient(180deg,var(--gold-soft),var(--gold))}
+.pc-top{display:flex;justify-content:space-between;gap:22px;align-items:flex-start;flex-wrap:wrap}
+.pc-badge{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.16em;color:var(--rose-dark);
+  background:rgba(255,188,215,.28);border-radius:999px;padding:6px 14px;margin-bottom:14px}
+.pcard.second .pc-badge{color:#8a6b2e;background:rgba(239,220,184,.6)}
+.pc-name{font-family:var(--serif);font-size:clamp(20px,2.8vw,27px);font-weight:600;letter-spacing:.05em;line-height:1.4}
+.pc-name em{font-family:var(--en);font-style:italic;font-size:15px;color:var(--rose-deep);letter-spacing:.08em;margin-left:8px}
+.pc-brand{font-size:13px;color:var(--plum-3);margin-top:8px;letter-spacing:.05em}
+.pc-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+.pc-meta i{font-style:normal;font-size:11.5px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.85);
+  box-shadow:inset 0 0 0 1px rgba(255,188,215,.7);color:var(--plum-2)}
+.pc-meta i.gold{box-shadow:inset 0 0 0 1px var(--gold-soft);color:#8a6b2e}
+.ring{flex:none;display:grid;place-items:center;position:relative;width:104px;height:104px}
+.ring svg{transform:rotate(-90deg)}
+.ring .val{position:absolute;text-align:center;line-height:1.15}
+.ring .val b{font-family:var(--en);font-size:26px;color:var(--rose-dark)}
+.ring .val b i{font-style:normal;font-size:13px}
+.ring .val span{display:block;font-size:10.5px;letter-spacing:.14em;color:var(--plum-3)}
+.pyramid{margin-top:24px;display:grid;gap:10px}
+.pyramid .pr{display:grid;grid-template-columns:74px 1fr;gap:14px;align-items:center;
+  background:rgba(255,255,255,.72);border-radius:14px;padding:12px 16px;border:1px solid rgba(255,255,255,.9)}
+.pyramid .pr b{font-family:var(--serif);font-size:13px;letter-spacing:.1em;color:var(--rose-dark);font-weight:600}
+.pyramid .pr span{font-size:13.6px;color:var(--plum-2);line-height:1.8}
+.pyramid .pr.top-A{background:linear-gradient(90deg,rgba(255,214,231,.55),rgba(255,255,255,.7))}
+.pyramid .pr.top-B{background:linear-gradient(90deg,rgba(255,188,215,.5),rgba(255,255,255,.7))}
+.pyramid .pr.top-C{background:linear-gradient(90deg,rgba(233,123,164,.34),rgba(255,255,255,.7))}
+.pc-desc{margin-top:20px;font-size:14.4px;line-height:2.1;color:var(--plum-2);text-align:justify}
+.pc-cols{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin-top:20px}
+.pc-col{background:rgba(255,255,255,.7);border-radius:16px;padding:15px 17px;border:1px solid rgba(255,255,255,.9)}
+.pc-col h4{font-family:var(--serif);font-size:13px;letter-spacing:.1em;color:var(--rose-dark);margin-bottom:9px;font-weight:600}
+.pc-col p{font-size:13.4px;line-height:1.95;color:var(--plum-2)}
+.pcard.second .pc-col h4{color:#8a6b2e}
+.others{margin-top:34px}
+.others h3{font-family:var(--serif);font-size:16px;letter-spacing:.1em;font-weight:600;margin-bottom:14px}
+.others .pv-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.result-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:38px}
+footer{position:relative;z-index:3;text-align:center;padding:26px 20px 40px;font-size:12px;color:var(--plum-3);line-height:1.9;letter-spacing:.04em}
+footer b{color:var(--rose-deep);font-weight:600;font-family:var(--serif)}
+@media(max-width:560px){
+  .ring{width:88px;height:88px}
+  .pyramid .pr{grid-template-columns:60px 1fr;padding:11px 13px}
+  .opt{padding:14px 15px;font-size:14px}
+}
+</style>
+</head>
+<body>
+<div class="aurora"><i></i><i></i><i></i><i></i></div>
+<div class="sparkles"></div>
+
+<header class="topbar">
+  <button class="brand" data-act="home" aria-label="回到首页">
+    <svg viewBox="0 0 48 48" aria-hidden="true">
+      <defs>
+        <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#ffd7e7"/><stop offset=".55" stop-color="#f08cb2"/><stop offset="1" stop-color="#c9568a"/>
+        </linearGradient>
+      </defs>
+      <rect x="19" y="3.5" width="10" height="6" rx="2" fill="#e2a6c0"/>
+      <rect x="21.5" y="9" width="5" height="5.5" rx="1" fill="#f2cfdd"/>
+      <path d="M13.5 19.5c0-3.4 3-5 6.5-5h8c3.5 0 6.5 1.6 6.5 5v17c0 4.4-3.2 6.5-7.5 6.5h-6c-4.3 0-7.5-2.1-7.5-6.5z" fill="url(#lg)" opacity=".35"/>
+      <path d="M13.5 26.5h21V36.5c0 4.4-3.2 6.5-7.5 6.5h-6c-4.3 0-7.5-2.1-7.5-6.5z" fill="url(#lg)"/>
+      <path d="M13.5 19.5c0-3.4 3-5 6.5-5h8c3.5 0 6.5 1.6 6.5 5v7h-21z" fill="#fff" opacity=".45"/>
+      <circle cx="30" cy="14" r="1.6" fill="#fff" opacity=".8"/>
+    </svg>
+    <span>
+      <h1>香氛罗盘</h1>
+      <p>Perfume Compass</p>
+    </span>
+  </button>
+  <nav class="nav">
+    <button class="chipbtn" data-act="home">香调总览</button>
+    <button class="chipbtn" data-act="reset">↺ 重置</button>
+  </nav>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  <b>香氛罗盘</b> · 12 大香调 · 57 支代表作<br>
+  香材表依据公开资料整理，用于香气方向参考；实际配方与批次以品牌官方为准。
+</footer>
+
+<script>
+/* =========================================================
+   数据：12 大香调（总体介绍 / 专属测试 / 代表作与香材表）
+   每支香水 w 字段为该香在四个「方向轴」上的权重
+   ========================================================= */
+const FAMILIES = [
+/* ---------- 1. 花香调 ---------- */
+{
+  id:'floral', name:'花香调', en:'Floral', icon:'🌸',
+  tagline:'被花朵包裹的柔软与浪漫，香水世界最庞大也最古老的家族',
+  keywords:['玫瑰','茉莉','晚香玉','鸢尾','牡丹','铃兰'],
+  materials:'玫瑰、茉莉、晚香玉、鸢尾、牡丹、铃兰、橙花、紫罗兰、依兰',
+  intro:[
+    '花香调是香水版图里最大的一块大陆：只要一支香的主角是花朵，它就属于这里。从清晨带露的铃兰，到夏夜里浓得化不开的晚香玉，再到祖母梳妆台上那盒旧香粉，花香调几乎能装下所有关于「柔软」的想象。它也是最古老的一类——人类最早佩戴的香气，就是把花揉碎在皮肤上。',
+    '传统上花香调分两大走向：一是「单一花香」，把一种花做到极致，比如玫瑰、茉莉、鸢尾；二是「花束／复合花香」，把几种花叠在一起，再配上醛、麝香或木质，做出华丽、抽象、有年代感的花束。近几十年又长出了第三种：清透的「空气感花香」，用铃兰、小苍兰、白麝香做出像刚洗过澡一样的干净气息。',
+    '很多人以为花香＝甜、＝年轻、＝女性。其实花香调脾气很广：它可以是水感的、皂感的、粉感的、绿感的，也可以是复古而威严的。真正决定它气质的，不是花，而是围绕花朵的那一圈辅料——这是花香调最有趣的地方。',
+    '下面 5 道题会帮你判断：你想要的花香是「干净清透」、是「玫瑰式的浪漫」、是「浓艳丰腴的白花」，还是「复古粉感的讲究」。'
+  ],
+  axes:{ airy:'清透空气感', rose:'玫瑰浪漫', lush:'丰腴白花', powder:'粉感鸢尾' },
+  questions:[
+    { q:'闭上眼睛，你希望闻到的花香像什么？', options:[
+      { t:'清晨草地上带露水的小野花，风一吹若有若无', w:{ airy:3, powder:1 } },
+      { t:'一大束刚剪下来的新鲜玫瑰，花瓣还带着水汽', w:{ rose:3, airy:1 } },
+      { t:'夏夜里开到最盛的白花，浓得化不开', w:{ lush:3, rose:1 } },
+      { t:'祖母梳妆台上那盒旧香粉，一打开就是时光的味道', w:{ powder:3, lush:1 } }
+    ]},
+    { q:'你希望这支香停在你皮肤上是什么质地？', options:[
+      { t:'透明的水感与皂感，像刚洗过的白衬衫', w:{ airy:3, powder:1 } },
+      { t:'花瓣被揉碎时那种湿润、柔软、微甜的触感', w:{ rose:3 } },
+      { t:'饱满圆润、有厚度的奶油感，闻得到「花心」', w:{ lush:3, powder:1 } },
+      { t:'干燥的粉雾，像丝绒手套轻轻拂过脸颊', w:{ powder:3, rose:1 } }
+    ]},
+    { q:'你最可能在哪一个时刻穿上它？', options:[
+      { t:'春日午后散步，阳光温和、心情轻松', w:{ airy:3, rose:1 } },
+      { t:'初夏清晨，阳光还不烫，要去赴一场约会', w:{ rose:3, airy:1 } },
+      { t:'盛夏夜晚的露天晚餐，灯光很暖', w:{ lush:3 } },
+      { t:'深秋与冬天，裹着大衣走过傍晚的街道', w:{ powder:3, lush:1 } }
+    ]},
+    { q:'你希望别人怎么形容你的味道？', options:[
+      { t:'干净、清爽、有一点恰到好处的距离感', w:{ airy:3 } },
+      { t:'温柔、浪漫，让人想靠近的温度', w:{ rose:3, lush:1 } },
+      { t:'华丽、有气场，一进门就会被注意到', w:{ lush:3, powder:1 } },
+      { t:'复古、讲究，像有故事的人', w:{ powder:3, rose:1 } }
+    ]},
+    { q:'最后，挑一个你最想闻到的主角花材', options:[
+      { t:'铃兰、小苍兰、栀子花这类清透白花', w:{ airy:3, powder:1 } },
+      { t:'大马士革玫瑰与牡丹，正统的浪漫', w:{ rose:3 } },
+      { t:'晚香玉、依兰依兰与茉莉，浓艳的热情', w:{ lush:3, rose:1 } },
+      { t:'鸢尾与紫罗兰，粉质又带点凉意', w:{ powder:3, airy:1 } }
+    ]}
+  ],
+  perfumes:[
+    {
+      n:'小雏菊', en:'Daisy', b:'Marc Jacobs', year:2007, conc:'EDT 淡香水', type:'商业香', gender:'偏女香', price:'价位 轻奢',
+      top:'野草莓、紫罗兰叶、葡萄柚', heart:'栀子花、紫罗兰、茉莉', base:'麝香、香草、白木',
+      w:{ airy:3, powder:1 },
+      desc:'小雏菊几乎是「清透花香」的标准答案。开场的野草莓带着一点果汁的甜，但三分钟后就被紫罗兰叶的青涩和葡萄柚的清爽接管；中段是栀子花与茉莉做出的白色花饮，水感、透明、不甜腻；结尾落在干净的麝香与一层很薄的白木上，几乎不残留任何厚重的余味。它给人的整体印象是「青春、干净、没有攻击性」，像刚晒过的棉布裙子。',
+      why:'你偏爱的是不甜、不厚重、贴近皮肤的透明花香，最怕被香气「压住」。小雏菊把花香做得很轻，只在近距离被闻到，完全符合你要的那种清爽的美好。',
+      tip:'春夏白天、通勤、上课、见长辈都极安全；因为浓度轻、留香约 4–5 小时，可以随身带小瓶补喷。想让它更持久，先喷在身体乳之后。',
+      similar:'想再多一点水感可看同名 Daisy Dream；想升级成更有辨识度的清透白花，可以试 Jo Malone 蓝风铃或 Diptyque 杜桑 EDT。',
+      one:'青春干净的白花，几乎没有攻击性'
+    },
+    {
+      n:'红玫瑰', en:'Red Roses', b:'Jo Malone London', year:1996, conc:'Cologne 古龙水', type:'沙龙香', gender:'偏女香', price:'价位 中高',
+      top:'柠檬、薄荷、紫罗兰叶', heart:'保加利亚玫瑰、五月玫瑰、玫瑰原精', base:'蜂蜡、雪松、麝香',
+      w:{ rose:3, airy:2 },
+      desc:'红玫瑰是「最像真玫瑰」的香水之一：它用了七种玫瑰原料拼出一整束花，从花园里刚剪下的鲜玫瑰，到玫瑰花瓣的蜡质触感，再到玫瑰纯露的清冽，层次铺得很完整。开场的柠檬与薄荷只负责带来一点点凉意和「花茎折断时的绿」，中段立刻被饱满的花瓣淹没；尾调用蜂蜡与雪松把玫瑰轻轻托住，避免它变得像香皂。',
+      why:'你的答案指向正统的浪漫：要花瓣、要湿润、要真实的玫瑰而不是糖浆。红玫瑰把「一束新鲜玫瑰」这件事做得毫无折扣，与你想要的浪漫气质完全对齐。',
+      tip:'非常适合约会、纪念日、春夏的白天或初秋夜晚。古龙水浓度扩散自然、留香 3–4 小时，适合少量多次地补喷；叠喷同品牌黑莓与月桂叶会更活泼。',
+      similar:'想要更醇厚、带一点暗黑广藿香的玫瑰，可以试 Frédéric Malle 一轮玫瑰；想要粉感复古玫瑰，可试 Chanel N°5 的玫瑰段落。',
+      one:'七种玫瑰拼出的「一束真花」'
+    },
+    {
+      n:'杜桑', en:'Do Son', b:'Diptyque', year:2005, conc:'EDT 淡香水', type:'沙龙香', gender:'中性偏女', price:'价位 中高',
+      top:'橙花、玫瑰、鸢尾', heart:'晚香玉、茉莉、橙花', base:'安息香、麝香、雪松',
+      w:{ lush:3, airy:2, powder:1 },
+      desc:'杜桑的灵感来自越南下龙湾的海边晚香玉，所以它虽是白花，却带着一点水汽与咸味。开场是橙花与鸢尾的清凉，很快晚香玉就在中段全面绽放：奶感、丰腴、微微的青涩，像一整丛花在夜里同时打开；后调的安息香与麝香把它收成一个温热柔软的抱枕。它有存在感，但不过分甜，属于「白花里最会呼吸的一支」。',
+      why:'你想要饱满、有厚度、真正开在夜里的白花，但又不想变成浓稠的糖。杜桑正是这种「丰腴却透气」的白花，和你答案里那份浓艳的热情高度吻合。',
+      tip:'夏夜、晚宴、度假、约会都很合适；EDT 适合白天，想更浓郁可选 EDP。晚香玉在湿热天气会更张扬，办公室建议喷在衣服或发尾。',
+      similar:'更清新的白花可看 Gucci Bloom 花悦；想要白花＋椰奶的热带感，可试 Diptyque 的依兰之水或 Creed 白色爱恋。',
+      one:'海边晚香玉，丰腴却会呼吸'
+    },
+    {
+      n:'N°5 五号香水', en:'N°5', b:'Chanel', year:1921, conc:'EDP 淡香精 / 香精', type:'商业香', gender:'偏女香', price:'价位 中高',
+      top:'橙花、依兰依兰、醛', heart:'五月玫瑰、茉莉、鸢尾', base:'檀香、香根草、香草、麝香',
+      w:{ powder:3, lush:3, rose:1 },
+      desc:'五号是香水史上的分水岭：它第一次用「醛」把花朵变得抽象，不再像某一朵具体的花，而是一片华丽、明亮、粉质的花束。开场醛香会有一瞬间的「肥皂感」——这是它的签名；随后玫瑰与茉莉在粉质底座上展开，鸢尾带来干燥的丝绒感；尾调是檀香、香草与麝香的暖。它讲究、有仪式感，闻起来像一段被妥善保存的年代。',
+      why:'你的偏好带着明显的复古与讲究：要粉感、要层次、要「有故事」。五号正是粉感花香的鼻祖，那份干燥的丝绒质感与你想要的优雅气质几乎重合。',
+      tip:'秋冬、正式场合、晚宴、大衣与真丝最相配。EDP 比 EDT 圆润好穿，建议喷在手腕内侧与耳后，用体温慢慢烘出来；不要喷太多。',
+      similar:'喜欢这种粉感华丽，可延伸试 Guerlain 蝴蝶夫人（西普方向）或 Chanel N°19（绿感粉香）。',
+      one:'粉感花束的鼻祖，讲究又有故事'
+    },
+    {
+      n:'一轮玫瑰', en:'Portrait of a Lady', b:'Frédéric Malle', year:2010, conc:'EDP 淡香精', type:'沙龙香', gender:'中性偏女', price:'价位 高端',
+      top:'黑加仑、丁香、玫瑰', heart:'土耳其玫瑰、广藿香、乳香', base:'檀香、麝香、安息香',
+      w:{ rose:3, lush:3, powder:1 },
+      desc:'一轮玫瑰是当代最著名的「大玫瑰」之一：土耳其玫瑰被推到极高的浓度，中段有广藿香与乳香压阵，所以它既艳丽又深沉，有一点教堂般的肃穆。开场黑加仑的果酸让玫瑰显得鲜活，随后的玫瑰像被灯光照着，浓郁、立体、扩散极强；尾调的檀香与安息香把它变成一件厚实的天鹅绒外套。',
+      why:'你要的不是清淡的浪漫，而是浓烈、有主角感的玫瑰，并且愿意接受一点沉重与深度。一轮玫瑰把玫瑰做到近乎极致，正是你画像里「玫瑰浪漫」的最强形态。',
+      tip:'秋冬夜晚、正式场合、独处时的仪式感；一两喷就足够，扩散很强，务必少量。夏天白天使用会显得过重。',
+      similar:'想更日常的玫瑰可试 Jo Malone 红玫瑰；想要玫瑰＋乌木的中东感，可试 Tom Ford 乌木沉香。',
+      one:'当代最有存在感的浓艳玫瑰之一'
+    }
+  ]
+},
+
+/* ---------- 2. 果香调 ---------- */
+{
+  id:'fruity', name:'果香调', en:'Fruity', icon:'🍑',
+  tagline:'多汁、鲜活、会让人不自觉微笑的果实气息',
+  keywords:['桃','草莓','黑加仑','无花果','荔枝','梨'],
+  materials:'水蜜桃、草莓、黑加仑、覆盆子、无花果、荔枝、梨、青苹果、大黄',
+  intro:[
+    '果香调是香水里最「即时」的一类：它几乎不需要理解成本，闻到的一瞬间你就知道是哪种水果、甜还是酸、熟透还是青涩。现代果香调大量依赖合成香料，因为真实水果很难从植物中直接萃取——这也让调香师能自由地「创造」一种不存在却无比逼真的果实，比如一支熟到快要裂开的无花果。',
+    '果香调的四个主要走向，大致就是水果的四种状态：多汁甜熟（桃、草莓、荔枝）、酸甜带籽（黑莓、红加仑）、热带果肉（无花果、椰子、芒果）、青涩果皮（大黄、青苹果、青芒果）。同一种水果处在不同状态，气质完全不同——甜熟是亲和力，酸涩是清爽感。',
+    '单独的水果香气往往留不住，所以果香调几乎都会配上白麝香、广藿香或木质来「定锚」：麝香让它变得像皮肤本身的味道，广藿香给它一点泥土感的深度，木质则让甜味不至于发腻。看一支果香好不好，关键就在这层底座。',
+    '接下来 5 题帮你定位：你想要的果香是甜熟多汁、酸甜有骨、热带果泥，还是青涩带皮。'
+  ],
+  axes:{ juicy:'多汁甜果', berry:'浆果酸甜', tropical:'热带果肉', tart:'青涩果皮' },
+  questions:[
+    { q:'哪一幕果实画面最让你心动？', options:[
+      { t:'咬开一口熟透的水蜜桃，汁水顺着手指流下来', w:{ juicy:3, tropical:1 } },
+      { t:'从灌木上摘一把还带着霜的黑莓，酸得人眯眼', w:{ berry:3, tart:1 } },
+      { t:'热带果盘：无花果、芒果、椰肉堆在一起', w:{ tropical:3, juicy:1 } },
+      { t:'削下来的青苹果皮、掰断的大黄梗，脆生生地发涩', w:{ tart:3, berry:1 } }
+    ]},
+    { q:'你更能接受哪一种「甜」？', options:[
+      { t:'甜得很直接、很果汁，像糖果但要有水汽', w:{ juicy:3 } },
+      { t:'酸多甜少，要有咬下去那一瞬间的刺激', w:{ berry:3, tart:1 } },
+      { t:'奶油感的甜，像果泥或果酱，厚实绵密', w:{ tropical:3, juicy:1 } },
+      { t:'几乎不甜，只有果皮的清苦与植物的绿', w:{ tart:3 } }
+    ]},
+    { q:'你会把它穿在什么季节？', options:[
+      { t:'盛夏正午，越清爽越好', w:{ tart:3, berry:1 } },
+      { t:'初夏野餐，阳光、草地、水果篮', w:{ juicy:3, berry:1 } },
+      { t:'海岛度假，湿热的风和泳池边', w:{ tropical:3 } },
+      { t:'春天刚上市的水果季，新鲜又有活力', w:{ juicy:2, tart:2 } }
+    ]},
+    { q:'你希望它给你带来什么气场？', options:[
+      { t:'甜美讨喜，让人想亲近', w:{ juicy:3, tropical:1 } },
+      { t:'元气、活泼、有一点点野', w:{ berry:3 } },
+      { t:'慵懒度假感，像永远在假期里', w:{ tropical:3 } },
+      { t:'清爽干净、理智有分寸', w:{ tart:3 } }
+    ]},
+    { q:'最后，选出你最爱的果实组合', options:[
+      { t:'桃、草莓、荔枝——柔软多汁的甜果', w:{ juicy:3 } },
+      { t:'黑莓、红加仑、葡萄柚——酸爽有骨', w:{ berry:3, tart:1 } },
+      { t:'无花果、椰子、杏仁——热带奶油果肉', w:{ tropical:3 } },
+      { t:'大黄、青苹果、青芒果——青涩果皮', w:{ tart:3, berry:1 } }
+    ]}
+  ],
+  perfumes:[
+    {
+      n:'反转巴黎', en:'Mon Paris', b:'Yves Saint Laurent', year:2016, conc:'EDP 淡香精', type:'商业香', gender:'偏女香', price:'价位 中端',
+      top:'草莓、覆盆子、佛手柑、梨', heart:'牡丹、橙花、茉莉、曼陀罗', base:'白麝香、广藿香、雪松、喀什米尔木',
+      w:{ juicy:3, tropical:1 },
+      desc:'反转巴黎是「恋爱感果香」的典型：开场就是一大捧草莓与覆盆子，甜得明亮、带一点软糖感，但佛手柑的酸把它拉回清爽。中段牡丹与橙花把果味转成花束，甜度被稀释得更温柔；尾调的白麝香与广藿香是它的关键——那一层麝香让整支香像「皮肤自带的好闻」，广藿香则防止甜味发散成糖果。',
+      why:'你要的是多汁、直接、讨人喜欢的甜果，且希望它落在皮肤上而不是浮在空气里。反转巴黎的草莓—麝香结构正是这种「甜而贴身」的典范，与你答案里的多汁甜果完全一致。',
+      tip:'约会、逛街、秋冬白天都合适，一喷在手腕、一喷在颈侧即可；因为偏甜，夏天正午建议减量。留香约 6–8 小时。',
+      similar:'想更酸爽可试 Jo Malone 黑莓与月桂叶；想更奶甜可试 Byredo 果肉。',
+      one:'草莓＋白麝香的恋爱感甜果'
+    },
+    {
+      n:'黑莓与月桂叶', en:'Blackberry & Bay', b:'Jo Malone London', year:2012, conc:'Cologne 古龙水', type:'沙龙香', gender:'中性', price:'价位 中高',
+      top:'黑莓、黑加仑', heart:'月桂叶、玫瑰', base:'雪松、香根草',
+      w:{ berry:3, tart:2 },
+      desc:'这支香的妙处在于「酸」被认真对待了：开场黑莓是带籽的、微涩的酸甜，不是果酱；紧接着月桂叶带来一丝近乎药感的绿意，让果汁的甜显得克制；尾调的雪松与香根草干燥、干净，把整支香收得利落。它闻起来像盛夏午后走进果园深处，脚边是晒热的草。',
+      why:'你偏爱酸多甜少、有骨架的果香，不喜欢黏腻的糖。黑莓与月桂叶用绿意和木质给浆果做支撑，正是你要的那种「酸甜有骨」。',
+      tip:'春夏通勤、白天出游、周末都很好穿；古龙水留香 3–4 小时，适合喷在衣物上延长。男女都可，男生用会显得格外清爽。',
+      similar:'想更甜的浆果，可试 YSL 反转巴黎；想要无花果的奶绿，可试 Diptyque 无花果。',
+      one:'带籽的酸甜黑莓，绿意利落'
+    },
+    {
+      n:'果肉', en:'Pulp', b:'Byredo', year:2011, conc:'EDP 淡香精', type:'沙龙香', gender:'中性', price:'价位 高端',
+      top:'佛手柑、小豆蔻、黑加仑', heart:'无花果、红桃、杏仁、果酱', base:'雪松、桃花心木、果香',
+      w:{ tropical:3, juicy:2 },
+      desc:'果肉是「熟过头」的果香：中段的无花果与红桃几乎像浓缩果泥，甜、厚、带一点发酵的酒意，杏仁给它一层奶油般的圆润。小豆蔻在中途撒了一点辛香，让甜不至于单调；尾调的雪松与桃花心木干燥收尾，留下一点点果皮与木屑。它大胆、有辨识度，是沙龙果香里最常被提起的一支。',
+      why:'你的答案是热带果肉、奶油果泥式的甜，并且愿意接受强烈的个性。果肉把「果实熟透到极致」这件事做到顶点，正是你想要的厚实果香。',
+      tip:'夏夜、度假、派对、秋冬也能压得住；扩散较强，一喷足够。不喜欢浓甜的人建议先试小样。',
+      similar:'想要更轻盈的无花果，可试 Diptyque 无花果；想要果香＋花香，可试 Marc Jacobs Perfect。',
+      one:'熟透的果泥，甜得有野性'
+    },
+    {
+      n:'Perfect 完美', en:'Perfect', b:'Marc Jacobs', year:2020, conc:'EDP 淡香精', type:'商业香', gender:'偏女香', price:'价位 中端',
+      top:'大黄、水仙', heart:'杏仁奶、茉莉', base:'喀什米尔木、麝香',
+      w:{ tart:3, berry:1 },
+      desc:'Perfect 的主角是大黄——一种在甜点里常见的酸涩植物梗，闻起来像青苹果皮混着柑橘，清爽中带一点涩。水仙让它更显清冷，中段的杏仁奶负责把酸收成一个柔软的圆弧，尾调喀什米尔木与麝香温暖、贴肤、干净。整体是「酸甜清爽＋奶香木质」的现代组合，好穿又有态度。',
+      why:'你喜欢青涩果皮的清苦与脆感，不希望甜味抢戏。Perfect 用大黄做主调、只用杏仁奶点一点甜，正是你画像里「青涩果皮」的现代表达。',
+      tip:'春夏秋三季的日常通勤都很合适，风格年轻现代；留香约 6 小时，性价比友好。',
+      similar:'想要更绿更苦，可试 Hermès 尼罗河花园；想要更甜的果香，可试 YSL 反转巴黎。',
+      one:'大黄＋杏仁奶，酸爽又现代'
+    },
+    {
+      n:'浅蓝', en:'Light Blue', b:'Dolce & Gabbana', year:2001, conc:'EDT 淡香水', type:'商业香', gender:'中性偏女', price:'价位 中端',
+      top:'西西里柠檬、苹果、雪松', heart:'茉莉、白玫瑰、竹', base:'麝香、琥珀、雪松',
+      w:{ juicy:2, tart:3 },
+      desc:'浅蓝是「果香＋水感」的开创者之一：苹果的脆甜与柠檬的酸共同开场，接着竹与白花带来透明的凉感，像正午海边的遮阳伞。它不浓、不腻，尾调的麝香与琥珀给了一点温度，让清爽不至于冷冰冰。二十多年来它一直是夏日香水的畅销标杆。',
+      why:'你的偏好介于多汁与青涩之间：要新鲜、脆、干净，不要甜腻也不要沉重。浅蓝用苹果的脆与柠檬的酸做出了这种平衡，是你日常最不容易出错的选择。',
+      tip:'盛夏、海边、运动后、通勤都合适；清爽型留香约 4 小时，适合放在包里补喷。男女皆可。',
+      similar:'想要更咸的海风感，可试 Armani 寄情水；想要更热的果香，可试 Byredo 果肉。',
+      one:'苹果与柠檬的经典夏日清爽'
+    }
+  ]
+},
+
+/* ---------- 3. 美食调 ---------- */
+{
+  id:'gourmand', name:'美食调', en:'Gourmand', icon:'🍰',
+  tagline:'把甜点、咖啡与香草穿在身上，温暖又上瘾',
+  keywords:['香草','焦糖','巧克力','咖啡','蜂蜜','奶油'],
+  materials:'香草、焦糖、巧克力、咖啡、蜂蜜、杏仁、牛奶、果仁糖、零陵香豆',
+  intro:[
+    '美食调出现得很晚——直到 1992 年 Mugler 天使问世，香水才第一次堂而皇之地闻起来像甜点。在此之前，「可食用的香气」被认为不够高级。天使之后，一切都变了：香草、焦糖、巧克力、咖啡成了主流语言，美食调也成了近三十年最畅销、最容易被记住的一类香。',
+    '美食调的四大方向：香草奶甜的温柔、焦糖甜点的俏皮、咖啡与可可的微苦回甘、以及辛香甜（酒香、香料、蜂蜜）的成熟感。它们的共同机制是「用甜味唤起最原始的安全感」——这也是为什么美食调在冬天和夜晚格外受欢迎。',
+    '很多人担心美食调太甜、太腻、像甜品店。其实好的美食调一定会给自己留出「解腻」的一手：广藿香、鸢尾、木质、烟草、或者一点点辛辣。当甜味被这些深色材料托住，它就从一个糖果变成了一个有骨架的香水。',
+    '下面 5 题会判断：你要的甜是绵密奶香、焦糖甜点、苦甜咖啡，还是带辛香的成熟甜。'
+  ],
+  axes:{ vanilla:'香草奶甜', caramel:'焦糖甜点', coffee:'咖啡苦甜', choco:'巧克力辛甜' },
+  questions:[
+    { q:'哪一样甜点最让你想立刻闻一闻？', options:[
+      { t:'一勺香草冰淇淋，奶香绵密、甜得温柔', w:{ vanilla:3 } },
+      { t:'刚出炉的焦糖布丁，表面那层脆糖', w:{ caramel:3 } },
+      { t:'深夜的一杯黑咖啡，苦里回甘', w:{ coffee:3 } },
+      { t:'一块 70% 黑巧克力，微苦、带一点木质与香料', w:{ choco:3 } }
+    ]},
+    { q:'你希望甜味在皮肤上是什么质感？', options:[
+      { t:'奶香、柔软、像刚烤好的奶油蛋糕', w:{ vanilla:3, caramel:1 } },
+      { t:'黏稠拉丝的焦糖，浓到能拉出丝', w:{ caramel:3, vanilla:1 } },
+      { t:'微苦、微涩、有烘焙感的回甘', w:{ coffee:3 } },
+      { t:'厚实微苦，还带一点烟草与广藿香的暗', w:{ choco:3, coffee:1 } }
+    ]},
+    { q:'你最想在什么时候穿上它？', options:[
+      { t:'冬天的室内，围着毯子取暖', w:{ vanilla:3, caramel:1 } },
+      { t:'约会与逛街，想被记住', w:{ caramel:3, vanilla:1 } },
+      { t:'夜晚出门，灯光昏黄的酒吧', w:{ coffee:3, choco:1 } },
+      { t:'独处的傍晚，需要一点被包裹的感觉', w:{ choco:3, vanilla:1 } }
+    ]},
+    { q:'你希望甜味带出怎样的气场？', options:[
+      { t:'温柔、无害、让人想抱一下', w:{ vanilla:3 } },
+      { t:'俏皮、有趣、带点小女孩的狡黠', w:{ caramel:3 } },
+      { t:'性感、夜色感、带一点危险', w:{ coffee:3, choco:1 } },
+      { t:'个性强烈、有力量、拒绝被归类', w:{ choco:3 } }
+    ]},
+    { q:'你的甜度上限在哪里？', options:[
+      { t:'可以很甜，甜是我的安全感', w:{ vanilla:3, caramel:2 } },
+      { t:'刚好甜，但要闻得出层次', w:{ caramel:2, vanilla:2, coffee:1 } },
+      { t:'苦甜平衡最好，甜要藏在苦后面', w:{ coffee:3, choco:1 } },
+      { t:'甜里必须有一点辛香与木质，否则太单薄', w:{ choco:3, coffee:1 } }
+    ]}
+  ],
+  perfumes:[
+    {
+      n:'美丽人生', en:'La Vie Est Belle', b:'Lancôme', year:2012, conc:'EDP 淡香精', type:'商业香', gender:'偏女香', price:'价位 中端',
+      top:'黑加仑、梨', heart:'鸢尾、茉莉、橙花', base:'果仁糖、香草、广藿香、零陵香豆',
+      w:{ vanilla:3, caramel:2 },
+      desc:'美丽人生是「温柔奶甜」的代表作：开场黑加仑与梨给了一点果味的明亮，中段鸢尾与茉莉像给甜味罩上一层粉质薄纱，让它变得高级、不扎人；尾调的果仁糖与香草是核心——奶香、坚果香、绵密圆润，而广藿香负责压住底部，避免整体垮成一团糖。它甜得从容，是很多人「第一支爱上」的香水。',
+      why:'你要的是绵密、温柔、有安全感的奶甜，而不是活泼的糖果。美丽人生的香草＋鸢尾结构把甜做得柔软又有层次，与你画像中的香草奶甜高度一致。',
+      tip:'秋冬、约会、居家都很合适，白天一喷即可；夏天高温会让甜味放大，建议半喷或喷衣物。留香 8 小时以上。',
+      similar:'想更俏皮的焦糖可试 Prada 糖果；想更夜色苦甜可试 YSL 黑鸦片。',
+      one:'鸢尾＋果仁糖的温柔奶甜'
+    },
+    {
+      n:'糖果', en:'Candy', b:'Prada', year:2011, conc:'EDP 淡香精', type:'商业香', gender:'偏女香', price:'价位 中端',
+      top:'焦糖、麝香', heart:'麝香、粉香', base:'香草、安息香、麝香',
+      w:{ caramel:3, vanilla:2 },
+      desc:'糖果把「焦糖」做成了主角：它甜、黏、圆润，但用大量麝香把这份甜变得像皮肤的体温而不是糖纸。整体几乎没有花香，是纯粹的甜＋麝香的组合，风格俏皮、明亮、带一点复古的摩登感。它的甜度明确，但质地柔软，不会刺鼻。',
+      why:'你的答案是活泼的焦糖甜点，喜欢甜得直接、有存在感。糖果用麝香把焦糖变成「你自己的味道」，正是你要的那种俏皮又贴身的甜。',
+      tip:'秋冬、约会、聚会很不错，夏天请减量。适合喜欢甜香但不想太复杂的人，一喷在颈侧就很够。',
+      similar:'想更有层次可试 Lancôme 美丽人生；想加入咖啡与夜色感，可试 YSL 黑鸦片。',
+      one:'麝香包裹的焦糖，甜得俏皮'
+    },
+    {
+      n:'黑鸦片', en:'Black Opium', b:'Yves Saint Laurent', year:2014, conc:'EDP 淡香精', type:'商业香', gender:'偏女香', price:'价位 中端',
+      top:'粉红胡椒、橙花、梨', heart:'咖啡、茉莉、橙花', base:'香草、广藿香、雪松',
+      w:{ coffee:3, choco:1, vanilla:1 },
+      desc:'黑鸦片最著名的是它的「咖啡」：中段的咖啡不是一杯清咖啡，而是加了糖与奶的浓缩，微苦、温热、带烘焙香；粉红胡椒在开场制造一点刺激性，让甜不至于一上来就软掉。尾调的香草与广藿香形成一个甜苦交织的深色底座，雪松收尾。它属于典型的「夜色香」，闻起来性感、有攻击性、很好记。',
+      why:'你要的是苦甜平衡、带夜色感的甜，希望甜藏在苦的后面。黑鸦片用咖啡做骨架、香草做温度，正是你画像里咖啡苦甜的最佳代表。',
+      tip:'夜晚、秋冬、约会、酒吧最合适；白天通勤建议只喷一喷。扩散强、留香久，衣服上的余香能留到第二天。',
+      similar:'想更浓的巧克力广藿香，可试 Mugler 天使；想更柔甜的奶香，可试 Lancôme 美丽人生。',
+      one:'咖啡＋香草的夜色甜，性感好记'
+    },
+    {
+      n:'天使', en:'Angel', b:'Mugler', year:1992, conc:'EDP 淡香精', type:'商业香', gender:'偏女香', price:'价位 中端',
+      top:'佛手柑、蜜瓜、椰子', heart:'蜂蜜、焦糖、黑莓、兰花', base:'巧克力、广藿香、香草、麝香',
+      w:{ choco:3, caramel:2 },
+      desc:'天使是美食调的开山之作，也是最有争议的一支：开场的蜜瓜与椰子甜得张扬，中段焦糖、蜂蜜、黑莓堆成一座甜品塔，而真正让它成立的是尾调——巧克力与广藿香。广藿香带来泥土般的凉意与苦感，把甜味撑成有骨架的结构，于是它既像甜点，又像甜点旁边的一杯苦艾酒。它浓烈、独特、绝不属于「安全的香」。',
+      why:'你要的是甜里必须带辛香与木质的厚实感，个性强、拒绝单薄。天使「巧克力＋广藿香」的构造正是这种又甜又暗的力量感，与你画像完全对味。',
+      tip:'秋冬夜晚、派对、艺术场合很合适；一到两喷足够，扩散极强。建议先小样试香，它的接受度比较两极。',
+      similar:'想更现代的巧克力辛甜，可试 Tom Ford 烟草香草；想更轻的焦糖，可试 Prada 糖果。',
+      one:'巧克力＋广藿香，美食调的鼻祖'
+    },
+    {
+      n:'烟草香草', en:'Tobacco Vanille', b:'Tom Ford', year:'2007', conc:'EDP 淡香精', type:'沙龙香', gender:'中性', price:'价位 高端',
+      top:'烟草叶、辛香料', heart:'零陵香豆、烟草花、香草', base:'干果、木质、可可',
+      w:{ choco:3, coffee:2, vanilla:1 },
+      desc:'烟草香草把「甜」推到成熟的一端：干燥的烟草叶与辛香料开场，随即零陵香豆与香草带来浓郁的甜暖，像冬日小酒馆里雪茄与热可可混在一起的味道。它的甜是被烘烤过的、带烟熏感的甜，男性用会显得稳重，女性用则格外有气场。',
+      why:'你的甜度偏好是「甜里必须带辛香与木质」，越有深度越好。烟草香草用烟草与零陵香豆为甜味提供骨架，正是这种成熟、有力量的辛甜路线。',
+      tip:'秋冬、正式场合、晚间活动；一到两喷，喷在外套内侧最能展现它的气韵。夏天不建议使用。',
+      similar:'喜欢辛香甜，可延伸试 YSL 鸦片；想要更柔和的奶甜，可试 Lancôme 美丽人生。',
+      one:'烟草＋香草，成熟的辛香甜'
+    }
+  ]
+},
+
+/* ---------- 4. 柑橘调 ---------- */
+{
+  id:'citrus', name:'柑橘调', en:'Citrus', icon:'🍋',
+  tagline:'明亮、干净、即刻提振的阳光气息，香水最古老的起点',
+  keywords:['柠檬','佛手柑','橙花','葡萄柚','血橙','苦橙叶'],
+  materials:'柠檬、佛手柑、甜橙、血橙、葡萄柚、苦橙叶、橙花、青柠、柑橘',
+  intro:[
+    '柑橘调是香水最古老的起点。最早的古龙水（Eau de Cologne）就是柑橘＋草本＋一点花香的配方，被当作提神与卫生用品使用，而非单纯的装饰。直到今天，「古龙水」这个词在很多人心里仍等于清新、干净、白天用。',
+    '柑橘调的四种性格来自不同的果子：柠檬明亮锐利，像一记清醒的耳光；血橙与甜橙多汁饱满，甜中带酸；葡萄柚清苦、带气泡感与一点药感；橙花则是柑橘家族里最温柔的一员，白花般的香甜、带皂感，常与麝香搭配成「刚梳洗过」的洁净气息。',
+    '柑橘最大的缺点是留香短——天然柑橘精油挥发极快，所以现代柑橘调会用木质、麝香、琥珀来「延长尾巴」，也常常做成 EDC/Cologne 浓度，鼓励随身补喷。它是最不挑人、最不容易出错的一类香，也是许多人的入门首选。',
+    '接下来 5 题帮你选出：你要的是柠檬的明亮、血橙的多汁、西柚的苦爽，还是橙花的温柔皂感。'
+  ],
+  axes:{ lemon:'柠檬明亮', blood:'血橙多汁', grape:'西柚苦爽', neroli:'橙花皂感' },
+  questions:[
+    { q:'哪一幕柑橘画面最让你清爽？', options:[
+      { t:'挤开一颗柠檬，酸气直冲鼻腔', w:{ lemon:3 } },
+      { t:'刀切开血橙，深红色的果汁漫出来', w:{ blood:3 } },
+      { t:'手撕西柚皮时喷出的那层雾', w:{ grape:3 } },
+      { t:'一整棵橙花树在春天开满小白花', w:{ neroli:3 } }
+    ]},
+    { q:'你更喜欢它带来的哪种质感？', options:[
+      { t:'清冽锐利，像一盆冷水洗脸', w:{ lemon:3 } },
+      { t:'果汁四溢，甜中带酸、饱满多汁', w:{ blood:3 } },
+      { t:'微苦带气泡，像一杯加了苏打的水', w:{ grape:3 } },
+      { t:'皂感温柔，像刚洗完澡的干净', w:{ neroli:3 } }
+    ]},
+    { q:'你最常在什么场景下需要它？', options:[
+      { t:'夏日通勤、早上需要立刻清醒', w:{ lemon:3 } },
+      { t:'运动后、出汗后需要重新变得清爽', w:{ blood:2, lemon:2 } },
+      { t:'海边、度假、正午的大太阳下', w:{ grape:3 } },
+      { t:'重要会议前，需要干净得体的印象', w:{ neroli:3 } }
+    ]},
+    { q:'你希望它传递怎样的气质？', options:[
+      { t:'干净利落、有精神', w:{ lemon:3 } },
+      { t:'鲜活开朗、有亲和力', w:{ blood:3 } },
+      { t:'低调讲究、带一点疏离感', w:{ grape:3 } },
+      { t:'温柔干净、让人放心', w:{ neroli:3 } }
+    ]},
+    { q:'最后，挑一个你最想闻到的柑橘搭配', options:[
+      { t:'柠檬＋薄荷＋草本，经典古龙水', w:{ lemon:3 } },
+      { t:'血橙＋黑加仑，酸甜的果汁感', w:{ blood:3 } },
+      { t:'葡萄柚＋罗勒，苦香带绿', w:{ grape:3 } },
+      { t:'橙花＋麝香，温暖洁净的皂感', w:{ neroli:3 } }
+    ]}
+  ],
+  perfumes:[
+    {
+      n:'经典古龙水', en:'Colonia', b:'Acqua di Parma', year:1916, conc:'EDC 古龙水', type:'沙龙香', gender:'中性', price:'价位 中高',
+      top:'柠檬、佛手柑、甜橙、苦橙叶', heart:'薰衣草、玫瑰、迷迭香', base:'香根草、檀香、雪松、麝香',
+      w:{ lemon:3, grape:1 },
+      desc:'帕尔玛之水经典古龙水是「意式古龙水」的教科书：开场是柠檬与苦橙叶的锐利酸爽，干净到几乎有金属感；中段薰衣草与迷迭香带来草本与一点点花香，让它不至于像柠檬水那样单薄；尾调用香根草、檀香与麝香铺出一层干燥的暖，让这支香在半小时后仍然留有一点体面。它清爽、考究、适合任何人。',
+      why:'你要的是明亮锐利、有精神、能立刻提振的柠檬感，并且希望它干净得体。经典古龙水正是这种「阳光下的白衬衫」，与你画像里的柠檬明亮完全重合。',
+      tip:'春夏、通勤、上午会议都很合适；EDC 留香约 3 小时，是少数「鼓励补喷」的香水，随身小瓶很方便。男女皆宜。',
+      similar:'想要更活泼的果汁感，可试 Atelier Cologne 赤霞橘光；想要橙花的温柔，可试 Tom Ford 绝耀倾橙。',
+      one:'意式古龙水的教科书，干净考究'
+    },
+    {
+      n:'赤霞橘光', en:'Orange Sanguine', b:'Atelier Cologne', year:2010, conc:'Cologne Absolue 精醇古龙', type:'沙龙香', gender:'中性', price:'价位 中高',
+      top:'血橙、苦橙、佛手柑', heart:'茉莉、橙花、天竺葵', base:'檀香、零陵香豆、白麝香',
+      w:{ blood:3, lemon:1 },
+      desc:'赤霞橘光是最「像在剥橙子」的香水：开场血橙的甜与苦橙的苦同时出现，饱满多汁、带着果皮的辛香，真实到几乎能感到手指上的黏腻。中段茉莉与橙花轻轻接住果味，尾调用檀香、零陵香豆与白麝香做成温暖的收束，比一般古龙水的留香长得多——这也是「精醇古龙」的意义。',
+      why:'你要的是多汁饱满、甜中带酸的果汁感，而不是单纯锐利的柠檬。赤霞橘光的血橙是柑橘调里最鲜活的一颗，与你答案中的血橙多汁精准对应。',
+      tip:'夏日、运动后、度假最合适；精醇古龙浓度较高，留香约 4–6 小时。男女都可，男生用会显得格外开朗。',
+      similar:'想要更锐利的柠檬，可试 Acqua di Parma 经典古龙水；想要更苦爽的西柚，可试 Hermès 粉红葡萄柚。',
+      one:'最像在剥一颗血橙的香水'
+    },
+    {
+      n:'粉红葡萄柚', en:'Eau de Pamplemousse Rose', b:'Hermès', year:2009, conc:'EDT 淡香水', type:'沙龙香', gender:'中性', price:'价位 中高',
+      top:'葡萄柚、柑橘', heart:'玫瑰、罗勒', base:'香根草、麝香',
+      w:{ grape:3, lemon:1 },
+      desc:'粉红葡萄柚把西柚那层「清苦」做得很精确：开场是果肉的气泡感与果皮的微苦，带一点药感与酸涩；中段的玫瑰非常轻，只负责给苦味加一层柔软；尾调的香根草干燥、微土，把整支香收成一个干净利落的尾巴。它是柑橘调里最有「成年人感」的一支，克制、疏离、不讨巧。',
+      why:'你的偏好带一点苦、一点疏离，喜欢葡萄柚那种清苦与气泡感。粉红葡萄柚正是这种低调讲究的苦爽路线，与你画像里西柚苦爽高度吻合。',
+      tip:'春夏白天、通勤、需要保持清醒的场合；留香约 3–4 小时，适合补喷。极简风格的人会特别喜欢。',
+      similar:'想要更柔和的花感，可试 Tom Ford 绝耀倾橙；想要更强的果汁感，可试 赤霞橘光。',
+      one:'清苦带气泡的西柚，克制讲究'
+    },
+    {
+      n:'绝耀倾橙', en:'Neroli Portofino', b:'Tom Ford', year:2011, conc:'EDP 淡香精', type:'沙龙香', gender:'中性', price:'价位 高端',
+      top:'佛手柑、柠檬、薰衣草、橙花', heart:'橙花、茉莉、橙花油', base:'琥珀、麝香、零陵香豆',
+      w:{ neroli:3, blood:1 },
+      desc:'绝耀倾橙描绘的是意大利里维埃拉的橙花：开场是柠檬与薰衣草带来的清凉，随后橙花与橙花油全面展开——那是一种白花般香甜、又带皂感的洁净气息，温柔但不柔弱。尾调的琥珀与零陵香豆给了它一层暖意，让这支「古龙水风格」的香留得更久、更贴身。整体像刚从海边回到酒店、洗过澡换上新衬衫的那一刻。',
+      why:'你要的是橙花的温柔皂感与干净得体，希望它温暖而不冷。绝耀倾橙用橙花为主、琥珀收尾，正是你要的那种「洁净又有人情味」的柑橘。',
+      tip:'春夏、度假、重要会议、约会都合适；留香约 5–6 小时。适合送礼，接受度极高。',
+      similar:'想要更锐利的柠檬，可试 Acqua di Parma 经典古龙水；想要更苦的葡萄柚，可试 Hermès 粉红葡萄柚。',
+      one:'橙花＋琥珀，温暖洁净的皂感'
+    },
+    {
+      n:'大地', en:'Terre d\'Hermès', b:'Hermès', year:2006, conc:'EDT 淡香水', type:'商业香', gender:'中性偏男', price:'价位 中高',
+      top:'葡萄柚、橙', heart:'胡椒、天竺葵、燧石', base:'雪松、香根草、安息香',
+      w:{ grape:2, lemon:2 },
+      desc:'大地是柑橘调与现代木质调之间的桥梁：开场的葡萄柚与橙明亮、微苦，几乎像刚剥开的果皮；中段的胡椒与「燧石」意象带来一种干燥的矿物感，非常独特；尾调的雪松与香根草扎实、坦荡。它把柑橘的清爽延长到了木质的沉稳里，是近二十年最成功的男香之一，也被大量女性使用。',
+      why:'你喜欢柑橘的清苦，也欣赏它落在木质上的那份沉静。大地用葡萄柚开场、香根草收尾，正好把你偏爱的苦爽与可靠感连在一起。',
+      tip:'四季皆可，通勤、正式场合、秋冬白天都很得体；留香约 6 小时。想更浓郁可选 Terre d\'Hermès Parfum。',
+      similar:'想要更纯的柑橘，可试 赤霞橘光；想要更厚重的木质，可试 Le Labo Santal 33。',
+      one:'葡萄柚＋燧石，柑橘与木质的桥梁'
+    }
+  ]
+},
+
+/* ---------- 5. 水生调 ---------- */
+{
+  id:'aquatic', name:'水生调', en:'Aquatic', icon:'🌊',
+  tagline:'海风、雨水与矿物的清冽，最擅长让人「呼吸」的香调',
+  keywords:['海盐','雨水','睡莲','西瓜','矿物','臭氧'],
+  materials:'海盐、海水、睡莲、莲花、西瓜、甜瓜、薄荷、臭氧分子、矿物质',
+  intro:[
+    '水生调是香水史上最年轻的主流香调之一——它诞生于 1990 年代，靠一种叫「西瓜酮」的合成分子，第一次让香水闻起来像「水本身」。海风、雨后的空气、泳池边的湿气，这些原本无法从植物中榨取的气味，从此可以被复制。它一出现就彻底改变了男香市场，也影响了之后所有「清新」的定义。',
+    '水生调大致分四种气质：咸涩的海风感（海盐、海水、海藻）、清冽的雨水与空气感（臭氧、矿物、莲花）、水润的瓜果感（西瓜、甜瓜、蜜瓜）、以及清爽的果水（柠檬＋水生）。前两者干净、疏离、有自然感；后两者亲和、活泼、更容易被喜欢。',
+    '水生调也有争议：一部分人觉得它「像洗衣液」「有金属味」，这通常来自合成分子与个人皮肤化学的互动。这也是为什么水生调一定要在自己皮肤上试——同一支香，在不同人身上可以是海风，也可以是空调滤网。',
+    '下面 5 题帮你定位：你想要的海是咸的、是雨后的、是水润带瓜果的，还是清爽果水。'
+  ],
+  axes:{ sea:'咸海风', rain:'雨后清冽', melon:'水感瓜果', fresh:'清爽果水' },
+  questions:[
+    { q:'哪一种「水」的画面最让你放松？', options:[
+      { t:'站在礁石上，咸湿的海风直接拍在脸上', w:{ sea:3 } },
+      { t:'一场雷雨刚停，空气湿冷、地面还在反光', w:{ rain:3 } },
+      { t:'泳池边咬一口冰镇西瓜，汁水顺着手腕流下', w:{ melon:3 } },
+      { t:'一杯加了柠檬片的冰水，杯壁全是水珠', w:{ fresh:3 } }
+    ]},
+    { q:'你更能接受哪种气息质感？', options:[
+      { t:'咸涩、带矿物与海藻的粗粝感', w:{ sea:3 } },
+      { t:'清透微凉，像雨后的空气一样空', w:{ rain:3 } },
+      { t:'水润清甜，有一点瓜果的奶香', w:{ melon:3 } },
+      { t:'清爽酸甜，干净得像刚洗过', w:{ fresh:3 } }
+    ]},
+    { q:'你会在什么场景下最想用它？', options:[
+      { t:'海边度假、开着窗吹风的日子', w:{ sea:3 } },
+      { t:'雨后散步、梅雨季的低气压里', w:{ rain:3, fresh:1 } },
+      { t:'盛夏的健身房与游泳池', w:{ melon:3 } },
+      { t:'夏季通勤、需要保持体面清爽', w:{ fresh:3 } }
+    ]},
+    { q:'你希望它给人的印象是？', options:[
+      { t:'阳光、健康、有运动感', w:{ sea:3, fresh:1 } },
+      { t:'安静、洁净、有一点禅意', w:{ rain:3 } },
+      { t:'清爽可爱、平易近人', w:{ melon:3 } },
+      { t:'利落干净、礼貌得体', w:{ fresh:3 } }
+    ]},
+    { q:'最后，挑一个你最想闻到的主角', options:[
+      { t:'海盐＋鼠尾草＋海藻', w:{ sea:3 } },
+      { t:'莲花、睡莲＋一点薄荷', w:{ rain:3, melon:1 } },
+      { t:'西瓜、甜瓜＋茉莉', w:{ melon:3 } },
+      { t:'柠檬、苹果＋白麝香', w:{ fresh:3 } }
+    ]}
+  ],
+  perfumes:[
+    {
+      n:'寄情水', en:'Acqua di Giò', b:'Giorgio Armani', year:1996, conc:'EDT 淡香水', type:'商业香', gender:'中性偏男', price:'价位 中端',
+      top:'佛手柑、橙花、柠檬', heart:'茉莉、迷迭香、鼠尾草', base:'白麝香、雪松、广藿香',
+      w:{ sea:3, fresh:1 },
+      desc:'寄情水是水生调最成功、最被模仿的一支：开场柠檬与橙花的清凉带着一点咸味，中段茉莉与草本让它有了阳光下的温度，尾调白麝香与雪松是它的灵魂——干净、贴肤、像刚晒过的皮肤。它几乎就是「海风与白衬衫」的代名词，二十多年仍是全球畅销的男香标杆，也被大量女性当作日常清新香使用。',
+      why:'你要的是咸湿的海风与阳光健康的气息，同时希望它干净贴身。寄情水的海盐感＋白麝香结构正是这种「刚从海里上来」的印象，与你画像的咸海风完全一致。',
+      tip:'春夏季、通勤、运动后、度假都极合适；留香约 5–6 小时。男女皆可，作为第一支香水非常安全。',
+      similar:'想更水润清甜，可试 Davidoff 冷水；想更禅意的莲花感，可试 三宅一生 一生之水。',
+      one:'海风＋白麝香，水生调的标杆'
+    },
+    {
+      n:'一生之水', en:"L'Eau d'Issey", b:'Issey Miyake', year:1992, conc:'EDT 淡香水', type:'商业香', gender:'中性偏女', price:'价位 中端',
+      top:'睡莲、玫瑰水、仙客来', heart:'铃兰、牡丹、百合', base:'麝香、檀香、雪松、琥珀',
+      w:{ rain:3, melon:1 },
+      desc:'一生之水是最早把「水」做成诗的一支香：开场的睡莲与玫瑰水清透、微凉，像清晨池面上的雾气；中段铃兰与百合延续这种白色花的洁净感，但不甜；尾调的麝香与檀香给出一层非常淡的暖，像水边晒着太阳的石头。它极简、安静、有禅意，瓶身与香气一样是设计史的经典。',
+      why:'你偏好的水是清冽、空、带一点禅意的，而不是咸腥或甜腻。一生之水用睡莲与铃兰做出这种「安静的湿气」，正是你要的雨后清冽，还与花香有一点温柔的交叉。',
+      tip:'春夏、白天、办公、冥想与阅读时都合适；留香约 4–5 小时。极简主义者的常年之选。',
+      similar:'想要更咸的海风，可试 Armani 寄情水；想要更水的瓜果感，可试 Davidoff 冷水。',
+      one:'睡莲与铃兰，安静的水感诗'
+    },
+    {
+      n:'冷水', en:'Cool Water', b:'Davidoff', year:1988, conc:'EDT 淡香水', type:'商业香', gender:'中性偏男', price:'价位 平价',
+      top:'薄荷、薰衣草、西瓜、佛手柑', heart:'天竺葵、茉莉、檀香', base:'麝香、橡苔、雪松、琥珀',
+      w:{ melon:3, sea:1 },
+      desc:'冷水是「水感瓜果」的开创者：开场的薄荷与西瓜带来一阵冰凉的水汽，清新到近乎凉飕飕；中段薰衣草与茉莉把这份凉意柔化，尾调的麝香、橡苔与雪松则给出干燥温暖的收束。它是八九十年代最畅销的男香之一，也是「刚洗完澡的清爽」这个概念的原始版本。',
+      why:'你喜欢水润清甜、带瓜果感的水生调，希望它亲切易懂而不是疏离。冷水的西瓜＋薄荷结构正是这种「冰镇过」的清爽，与你画像中的水感瓜果精准吻合。',
+      tip:'夏季、运动、日常通勤都很不错，性价比极高；留香约 4 小时，适合放在包里随时补喷。男女皆可。',
+      similar:'想更咸的海风，可试 Armani 寄情水；想更清甜的果水，可试 D&G 浅蓝。',
+      one:'西瓜＋薄荷，冰镇过的清爽'
+    },
+    {
+      n:'浅蓝', en:'Light Blue', b:'Dolce & Gabbana', year:2001, conc:'EDT 淡香水', type:'商业香', gender:'中性偏女', price:'价位 中端',
+      top:'西西里柠檬、苹果、雪松', heart:'茉莉、白玫瑰、竹', base:'麝香、琥珀、雪松',
+      w:{ fresh:3, melon:1 },
+      desc:'浅蓝属于「果香＋水生」的清爽路线：苹果与柠檬开场清脆，竹与白花带来透明的凉意，整体干净、明亮、毫不费力。它没有海水的咸与矿物感，而是把「清爽」做成一种礼貌而得体的状态——正因如此，它成了很多人夏天的固定答案。',
+      why:'你要的是利落、清爽、礼貌得体的果水感，不希望水感太咸或太冷。浅蓝的苹果＋竹结构正是这种「干净得体」的清爽，与你画像中的清爽果水完全对味。',
+      tip:'盛夏、通勤、白天社交；留香约 4 小时，适合随身补喷。是夏日礼物的安全选择。',
+      similar:'想要更咸的海风感，可试 Armani 寄情水；想要更安静的睡莲，可试 一生之水。',
+      one:'苹果＋竹，干净得体的夏日清爽'
+    },
+    {
+      n:'鼠尾草与海盐', en:'Wood Sage & Sea Salt', b:'Jo Malone London', year:2014, conc:'Cologne 古龙水', type:'沙龙香', gender:'中性', price:'价位 中高',
+      top:'海盐、葡萄柚', heart:'鼠尾草、海藻', base:'红藻、琥珀木、麝香',
+      w:{ sea:3, rain:1 },
+      desc:'鼠尾草与海盐是「咸感」最纯粹的表达之一：初闻是海盐的矿物咸味，紧接着鼠尾草带来干燥的草本气息，像海风吹过崖边的野草；尾调的红藻、琥珀木与麝香把咸味收成温暖贴肤的一层。它不甜、不艳，冷静而自然，是沙龙香中最受欢迎的日常香之一。',
+      why:'你的海风要咸、要有矿物与草木，而不是明亮的花果水感。鼠尾草与海盐用海盐＋草本做出了最粗粝自然的海岸气息，与你画像中的咸海风高度重合。',
+      tip:'四季皆可、全年好穿，通勤与周末都合适；古龙水留香 3–4 小时，可与同品牌无花果叠喷增加层次。男女皆宜。',
+      similar:'想更阳光的海风，可试 Armani 寄情水；想更禅意的水感，可试 一生之水。',
+      one:'海盐＋鼠尾草，冷静自然的海岸'
+    }
+  ]
+},
+
+/* ---------- 6. 绿叶调 ---------- */
+{
+  id:'green', name:'绿叶调', en:'Green', icon:'🌿',
+  tagline:'折断的花茎、割过的草坪与无花果树，清醒又自然',
+  keywords:['青草','白松香','无花果叶','番茄叶','青芒果','风信子'],
+  materials:'白松香、青草、无花果叶、番茄叶、风信子、罗勒、青芒果、紫罗兰叶',
+  intro:[
+    '绿叶调闻起来是「植物的绿」而不是「花」。它捕捉的是折断的花茎、揉碎的叶子、割过的草坪——那些带着青涩汁液与微苦的瞬间。这类香气常给人一种清醒、理智、甚至略带清冷的感觉，是夏天最解暑的一类香，也是知识分子气质的常客。',
+    '绿叶调有四个经典方向：白松香（galbanum）带来的凛冽与苦绿，是 1970 年代绿香的核心；无花果叶的奶绿，柔软、带一点椰香，现代又温柔；青草与番茄叶的田园感，湿润、有泥土气；以及青芒果、葡萄柚这类多汁的绿果，清爽带涩。',
+    '绿叶调曾在上世纪七十年代达到巅峰——那是一个女性开始穿长裤、追求独立与清醒的年代，绿香正中时代情绪。今天它不必再承载那些宣言，但依然是最有「态度」的清新：干净，却不乖顺。',
+    '接下来 5 题帮你判断：你要的绿是凛冽的、奶柔的、田园的，还是多汁带涩的。'
+  ],
+  axes:{ galbanum:'白松香凛冽', fig:'无花果奶绿', grass:'青草田园', mango:'青芒多汁绿' },
+  questions:[
+    { q:'哪一种「绿」的瞬间最打动你？', options:[
+      { t:'折断一支花茎，闻到那一声青涩的苦绿', w:{ galbanum:3 } },
+      { t:'走进无花果树下，叶子的奶香与果实的甜混在一起', w:{ fig:3 } },
+      { t:'割草机刚推过的草坪，草汁和泥土一起翻上来', w:{ grass:3 } },
+      { t:'掰开一颗青芒果，酸涩的香气直冲鼻子', w:{ mango:3 } }
+    ]},
+    { q:'你更喜欢哪种绿的质感？', options:[
+      { t:'冷冽、锐利、近乎苦，有距离感', w:{ galbanum:3 } },
+      { t:'柔软奶绿，像被树荫包住', w:{ fig:3 } },
+      { t:'湿润、带泥土与草腥味，自然到有点野', w:{ grass:3 } },
+      { t:'多汁带涩，酸爽有活力', w:{ mango:3 } }
+    ]},
+    { q:'你会在什么时刻用它？', options:[
+      { t:'正式场合，需要清醒理智的气场', w:{ galbanum:3 } },
+      { t:'书房、午后阅读、一个人待着', w:{ fig:3 } },
+      { t:'乡间周末、春游、户外散步', w:{ grass:3 } },
+      { t:'夏日午后，热得需要一点酸爽', w:{ mango:3 } }
+    ]},
+    { q:'你希望它传递的气质是？', options:[
+      { t:'清冷知性，不讨好任何人', w:{ galbanum:3 } },
+      { t:'温柔自然，有生活感', w:{ fig:3 } },
+      { t:'田园慢生活，脚踏实地', w:{ grass:3 } },
+      { t:'清爽的旅人感，永远在路上', w:{ mango:3 } }
+    ]},
+    { q:'最后，挑一个你最想要的绿色组合', options:[
+      { t:'白松香＋风信子＋鸢尾', w:{ galbanum:3 } },
+      { t:'无花果叶＋椰奶＋雪松', w:{ fig:3 } },
+      { t:'青草＋番茄叶＋罗勒', w:{ grass:3 } },
+      { t:'青芒果＋葡萄柚＋莲花', w:{ mango:3 } }
+    ]}
+  ],
+  perfumes:[
+    {
+      n:'N°19 十九号', en:'N°19', b:'Chanel', year:1970, conc:'EDT / EDP 淡香水', type:'商业香', gender:'偏女香', price:'价位 中高',
+      top:'白松香、橙花、风信子', heart:'鸢尾、水仙、玫瑰、茉莉', base:'橡苔、香根草、雪松、皮革',
+      w:{ galbanum:3, fig:1 },
+      desc:'十九号是绿香的一座高峰：开场白松香极冷、极苦，带一点金属般的凛冽，风信子让它多了几分清瘦的花感；中段的鸢尾与水仙承接这种冷，粉质而克制；尾调的橡苔、香根草与一丝皮革把它收成干燥、知性、略带性别模糊的骨架。它诞生于女性开始穿长裤的年代，是「清醒」这件事第一次被装进香水瓶。',
+      why:'你要的绿是冷冽、有距离、近乎苦的，并且愿意承担一点「不讨好」的气质。十九号的白松香＋鸢尾构造正是绿香中最凛冽的那一支，与你画像里的白松香凛冽完全重合。',
+      tip:'春夏、正式场合、通勤都很合适；EDP 更饱满、EDT 更锋利。适合气质偏冷静的人，秋冬用会显得格外有骨。',
+      similar:'想要更奶柔的绿，可试 Diptyque 无花果；想要更田园的草香，可试 Sisley 绿野仙踪。',
+      one:'白松香的凛冽之绿，绿香高峰'
+    },
+    {
+      n:'无花果', en:'Philosykos', b:'Diptyque', year:1996, conc:'EDT / EDP 淡香水', type:'沙龙香', gender:'中性', price:'价位 中高',
+      top:'无花果叶、无花果', heart:'椰奶、无花果肉', base:'雪松、白木、麝香',
+      w:{ fig:3, grass:1 },
+      desc:'无花果把整棵无花果树都装了进去：前调是揉碎的无花果叶——绿、微苦、带一点奶腥；中段果实成熟，椰奶般的甜润浮现出来，温柔又通透；尾调的雪松与白木让它干燥收尾，像树干在阳光下的味道。它是「奶绿」这一类香的开创者，也是很多人心中最舒服的绿色。',
+      why:'你偏爱的绿是柔软、自然、有生活感的，希望它有温度而不是冷硬。无花果的叶绿＋椰奶结构正是这种被树荫包住的温柔绿意，与你画像的无花果奶绿精准吻合。',
+      tip:'春夏秋三季都好穿，日常、通勤、周末皆宜；EDT 更清透、EDP 更浓郁。男女都适合，是沙龙入门首选。',
+      similar:'想要更凛冽的绿，可试 Chanel 十九号；想要更田园湿润，可试 Sisley 绿野仙踪。',
+      one:'叶绿＋椰奶，温柔的奶绿'
+    },
+    {
+      n:'绿野仙踪', en:'Eau de Campagne', b:'Sisley', year:1974, conc:'EDT 淡香水', type:'沙龙香', gender:'中性', price:'价位 中高',
+      top:'番茄叶、罗勒、柠檬', heart:'天竺葵、茉莉、青草', base:'香根草、橡苔、麝香',
+      w:{ grass:3, mango:1 },
+      desc:'绿野仙踪是「田园绿」的代表：开场番茄叶是它最著名的签名——那是一种带苦、带土腥、非常真实的植物气味，罗勒与柠檬让酸爽提亮；中段青草与天竺葵把绿意铺成一片开阔的田野；尾调的香根草与橡苔是泥土与草根的收束。它不做任何修饰，闻起来就是「刚从菜园走回来」。',
+      why:'你喜欢湿润、带泥土感、自然到有点野的绿，不喜欢修饰过的甜。绿野仙踪的番茄叶与青草正是这种有生命力的田园绿，与你画像的青草田园完全一致。',
+      tip:'春季与初夏最佳，户外、周末、度假都很合适；留香约 4–5 小时。气味独特，建议先在小样上确认对番茄叶的接受度。',
+      similar:'想要更奶柔的绿，可试 Diptyque 无花果；想要更凛冽的绿，可试 Chanel 十九号。',
+      one:'番茄叶＋青草，最真实的田园绿'
+    },
+    {
+      n:'尼罗河花园', en:'Un Jardin sur le Nil', b:'Hermès', year:2005, conc:'EDT 淡香水', type:'沙龙香', gender:'中性', price:'价位 中高',
+      top:'青芒果、番茄叶、葡萄柚、胡萝卜', heart:'莲花、橙花、水感', base:'乳香、麝香、梧桐木',
+      w:{ mango:3, grass:1, fig:1 },
+      desc:'尼罗河花园是「多汁的绿」的典范：开场青芒果酸涩、清脆、带果皮苦味，番茄叶在旁补充一点植物的青，葡萄柚提亮；中段莲花带来水感与清凉，让整支香从果园走向河岸；尾调的乳香与梧桐木给出干燥温暖的收束。它是花园系列中最受欢迎的一支，独特、明亮、有旅行的画面感。',
+      why:'你要的绿是多汁带涩、酸爽有活力的，希望闻到「果皮」而不是「糖果」。尼罗河花园的青芒果＋番茄叶正是这种清爽带涩的绿果，与你画像的青芒多汁绿高度吻合。',
+      tip:'春夏、旅行、通勤、度假都非常合适；留香约 5 小时。男女皆可，接受度很高。',
+      similar:'想要更田园的草香，可试 Sisley 绿野仙踪；想要更奶柔的绿，可试 Diptyque 无花果。',
+      one:'青芒果＋莲花，多汁带涩的绿果'
+    },
+    {
+      n:'热带爵士', en:'Un Jardin sur le Toit', b:'Hermès', year:2011, conc:'EDT 淡香水', type:'沙龙香', gender:'中性', price:'价位 中高',
+      top:'青苹果、梨、罗勒', heart:'番茄叶、玫瑰、木兰', base:'青草、木质、麝香',
+      w:{ mango:2, grass:2, fig:1 },
+      desc:'热带爵士描绘的是巴黎屋顶花园：青苹果与梨的清脆开场带一点果香，罗勒与番茄叶立刻把果味拉进「绿色」的一侧，中段木兰与玫瑰给出一层很薄的花香，尾调是青草、木质与麝香的干净收束。它比尼罗河花园更柔和、更田园一些，介于果园与草地之间。',
+      why:'你的绿果偏好里同时有「酸爽多汁」与「田园草香」两种味道，这支香正好落在两者中间：既有青苹果的脆，也有罗勒与青草的野。它是一个很好的折中选择。',
+      tip:'春夏、白天、周末户外；留香约 4–5 小时。适合不喜欢过甜、也不想要太冷硬的人。',
+      similar:'想更酸涩多汁，可试 尼罗河花园；想更凛冽，可试 Chanel 十九号。',
+      one:'青苹果＋罗勒，屋顶花园的田园绿'
+    }
+  ]
+},
+/* ---------- 7. 芳香调 ---------- */
+{
+  id:'aromatic', name:'芳香调', en:'Aromatic', icon:'🌾',
+  tagline:'薰衣草、鼠尾草与薄荷，草本植物的干净与宁静',
+  keywords:['薰衣草','鼠尾草','迷迭香','薄荷','茶香','草本'],
+  materials:'薰衣草、鼠尾草、迷迭香、薄荷、罗勒、百里香、绿茶、红茶、芫荽',
+  intro:[
+    '芳香调（Aromatic）的主角是厨房与药草园里的植物：薰衣草、鼠尾草、迷迭香、薄荷、百里香。它们有一个共同点——都含有强烈的芳香分子，闻起来干净、锐利、带一点「药感」。这类香气自古被用于沐浴、熏香与疗愈，所以芳香调天生带着「洁净」与「宁静」的底色。',
+    '芳香调的四个方向：薰衣草的粉质与舒缓；鼠尾草那种干燥、微咸、非常中性的干净；薄荷与罗勒的清凉醒神；以及茶香——红茶、绿茶在近年成为芳香调最受欢迎的新支线，温润、有回甘、不甜不腻。',
+    '芳香调常常不单独出现，而是与柑橘（清新）、木质（沉稳）、馥奇（薰衣草＋香豆素）结合。它是最「中性」的一类香，男女界线最模糊：一支薰衣草可以温柔，也可以非常有力量，取决于它旁边站的是香草还是皮革。',
+    '下面 5 题帮你判断：你更需要薰衣草的宁静、鼠尾草的干净、薄荷的清凉，还是茶香的温润。'
+  ],
+  axes:{ lavender:'薰衣草宁静', sage:'鼠尾草干净', mint:'薄荷清凉', tea:'茶香温润' },
+  questions:[
+    { q:'哪一幕草本画面最让你放松？', options:[
+      { t:'普罗旺斯的薰衣草田，紫色一直铺到天边', w:{ lavender:3 } },
+      { t:'晒干的白鼠尾草扎成一束挂在墙上', w:{ sage:3 } },
+      { t:'摘一把薄荷叶，指尖留下凉丝丝的香', w:{ mint:3 } },
+      { t:'一杯刚泡开的茶，热气带着回甘', w:{ tea:3 } }
+    ]},
+    { q:'你更需要哪种感受？', options:[
+      { t:'粉质的宁静，像深呼吸之后的松弛', w:{ lavender:3 } },
+      { t:'干净微咸的中性感，不带任何甜', w:{ sage:3 } },
+      { t:'清凉醒神，像被冷水泼了一下', w:{ mint:3 } },
+      { t:'温润、耐闻、有回甘的安定', w:{ tea:3 } }
+    ]},
+    { q:'你最常在什么场合需要它？', options:[
+      { t:'睡前或需要放松的时刻', w:{ lavender:3 } },
+      { t:'日常通勤，想保持干净利落', w:{ sage:3 } },
+      { t:'夏天正午、需要提神的时候', w:{ mint:3 } },
+      { t:'工作与思考时，需要安静陪伴', w:{ tea:3 } }
+    ]},
+    { q:'你希望它给人的印象是？', options:[
+      { t:'温柔、可靠、有安抚力', w:{ lavender:3 } },
+      { t:'中性、清爽、有距离感', w:{ sage:3 } },
+      { t:'有精神、爽快、少年感', w:{ mint:3 } },
+      { t:'低调、内敛、讲究', w:{ tea:3 } }
+    ]},
+    { q:'最后，挑一个你最想要的组合', options:[
+      { t:'薰衣草＋香草＋零陵香豆', w:{ lavender:3 } },
+      { t:'鼠尾草＋海盐＋琥珀木', w:{ sage:3 } },
+      { t:'薄荷＋罗勒＋青草', w:{ mint:3 } },
+      { t:'红茶／绿茶＋佛手柑', w:{ tea:3 } }
+    ]}
+  ],
+  perfumes:[
+    {
+      n:'卡朗男士', en:'Pour un Homme', b:'Caron', year:1934, conc:'EDT 淡香水', type:'沙龙香', gender:'中性偏男', price:'价位 中端',
+      top:'薰衣草、柠檬', heart:'薰衣草、玫瑰、鼠尾草', base:'香草、麝香、零陵香豆',
+      w:{ lavender:3, tea:1 },
+      desc:'卡朗男士是薰衣草香水的鼻祖之一，配方极其简单：薰衣草＋香草。开场薰衣草的清冽略带粉感，柠檬提亮；中段薰衣草被玫瑰与鼠尾草稍稍柔化；尾调的香草与零陵香豆带来温暖的奶甜，把原本冷硬的薰衣草变成一个柔软的拥抱。它启发了后来几乎所有「薰衣草＋香草」的搭配，也是很多人的薰衣草启蒙。',
+      why:'你要的是薰衣草的宁静与舒缓，同时希望它温暖、有安抚力。卡朗男士用香草托住薰衣草，正是你要的那种「深呼吸之后的松弛」，与你画像的薰衣草宁静完全一致。',
+      tip:'四季皆可，睡前、居家、秋冬白天都很合适；留香约 4–5 小时。接受度极高，男女皆宜，价格也友好。',
+      similar:'想要更清爽的少年感，可试 Guerlain 薄荷青草；想要薰衣草＋香豆素的馥奇方向，可试 Guerlain 姬琪。',
+      one:'薰衣草＋香草，芳香调的鼻祖'
+    },
+    {
+      n:'鼠尾草与海盐', en:'Wood Sage & Sea Salt', b:'Jo Malone London', year:2014, conc:'Cologne 古龙水', type:'沙龙香', gender:'中性', price:'价位 中高',
+      top:'海盐、葡萄柚', heart:'鼠尾草、海藻', base:'红藻、琥珀木、麝香',
+      w:{ sage:3, mint:1 },
+      desc:'这支香把鼠尾草做成了主角：干燥、微咸、带一点青草与药感，与海盐的矿物咸味叠在一起，闻起来像海风吹过崖边的野草。它不甜、不艳、不花，干净到近乎透明，尾调的琥珀木与麝香给出一层贴肤的暖。是沙龙香中最受欢迎的日常香之一，也是「干净中性」的当代样板。',
+      why:'你要的干净是中性、不甜的，带一点草本与自然的粗粝。鼠尾草与海盐用干燥草本＋矿物咸味做到了这一点，正是你画像里鼠尾草干净的最佳表达。',
+      tip:'四季全年好穿，通勤、周末、办公都很合适；古龙水留香 3–4 小时，建议随身补喷或叠喷无花果增加层次。男女皆宜。',
+      similar:'想要更咸的海风，可试 Armani 寄情水；想要薰衣草的温柔，可试 Caron 卡朗男士。',
+      one:'干燥草本＋海盐，干净到透明'
+    },
+    {
+      n:'薄荷青草', en:'Herba Fresca', b:'Guerlain', year:1999, conc:'EDT 淡香水', type:'沙龙香', gender:'中性', price:'价位 中端',
+      top:'薄荷、柠檬、罗勒', heart:'绿茶、铃兰、青草', base:'白麝香、木香',
+      w:{ mint:3, tea:2 },
+      desc:'薄荷青草属于娇兰花草水语系列，是最直白的「清凉」：开场薄荷与柠檬的凉意非常真实，像把手伸进冰水里；罗勒与绿茶在中段把凉意变得柔和，带上一点草本的绿；尾调的白麝香给出干净温暖的底。它简单、爽快、毫无负担，是夏天最解暑的一类香。',
+      why:'你要的是清凉醒神、爽快有精神的草本感，最好还能带一点绿。薄荷青草用薄荷＋绿茶做出这种「被冷水泼醒」的清爽，与你画像的薄荷清凉精准吻合。',
+      tip:'盛夏、运动后、午后犯困时最合适；留香约 3–4 小时，适合补喷。夏天放在冰箱里喷会更痛快。男女皆可。',
+      similar:'想要茶感更明显，可试 Bvlgari 大吉岭茶；想要薰衣草的宁静，可试 Caron 卡朗男士。',
+      one:'薄荷＋绿茶，最直白的清凉'
+    },
+    {
+      n:'大吉岭茶', en:'Pour Homme', b:'Bvlgari', year:1995, conc:'EDT 淡香水', type:'商业香', gender:'中性偏男', price:'价位 中端',
+      top:'佛手柑、橙花油、芫荽', heart:'大吉岭茶、小豆蔻、胡椒', base:'愈创木、麝香、琥珀',
+      w:{ tea:3, sage:1 },
+      desc:'大吉岭茶是茶香调的经典：开场佛手柑与橙花油明亮干净，中段大吉岭茶的温润茶感与小豆蔻、胡椒的辛香交织，安静却有层次；尾调的愈创木、麝香与琥珀把茶香收得干燥温暖。它被称作「白衬衫的味道」，简洁、礼貌、不张扬，二十多年来一直是茶香的入门标杆，男女都极好穿。',
+      why:'你要的是温润、耐闻、有回甘的茶香，希望它低调内敛而讲究。大吉岭茶用茶＋木质做出这种安静陪伴，正是你画像里茶香温润的代表。',
+      tip:'四季皆宜，办公、通勤、白天社交都非常得体；留香约 5 小时。男香中少见的「谁用都不会错」的选择。',
+      similar:'想要更清凉的薄荷绿，可试 Guerlain 薄荷青草；想要草本＋海盐，可试 鼠尾草与海盐。',
+      one:'白衬衫般的茶香，安静而讲究'
+    },
+    {
+      n:'姬琪', en:'Jicky', b:'Guerlain', year:1889, conc:'EDT / 香精', type:'沙龙香', gender:'中性', price:'价位 中高',
+      top:'佛手柑、柠檬、薰衣草', heart:'薰衣草、鸢尾、玫瑰、茉莉', base:'香草、零陵香豆、橡苔、麝香',
+      w:{ lavender:3, sage:1 },
+      desc:'姬琪诞生于 1889 年，是香水史上第一支「现代香水」——它第一次把合成香料与天然原料大胆结合，也是芳香调与馥奇调的分水岭。薰衣草带着粉质与一点动物感开场，中段花香被压得很低，尾调的香草与零陵香豆给出浓郁的暖甜。它古老、复杂、有故事感，是许多调香师心中的圣物。',
+      why:'你不只要薰衣草的宁静，还愿意接受粉感、层次与一点复古的深度。姬琪把薰衣草放进香草与橡苔的结构里，正是芳香调最有历史感的那条路线。',
+      tip:'秋冬、夜晚、正式场合；建议先小样试香，它的动物感与老派气质需要一点适应。喷在衣物上比皮肤更温和。',
+      similar:'想要更现代的薰衣草，可试 Caron 卡朗男士；想要薰衣草＋甜香豆的男香经典，可试 Jean Paul Gaultier 裸男。',
+      one:'1889 年的薰衣草，芳香与馥奇的分水岭'
+    }
+  ]
+},
+
+/* ---------- 8. 馥奇调 ---------- */
+{
+  id:'fougere', name:'馥奇调', en:'Fougère', icon:'🍃',
+  tagline:'薰衣草＋橡苔＋香豆素，男香世界的骨架与语法',
+  keywords:['薰衣草','橡苔','零陵香豆','鼠尾草','理容感','香豆素'],
+  materials:'薰衣草、橡苔、零陵香豆（香豆素）、佛手柑、天竺葵、茴香、皮革、麝香',
+  intro:[
+    '馥奇（Fougère）在法语里是「蕨类植物」的意思——但蕨类其实没有气味。这个香调的名字来自 1882 年 Houbigant 的「皇家馥奇」，它用薰衣草、橡苔、零陵香豆三种材料，凭空创造出一片「蕨类森林」。它成了现代男香的语法基础：今天你在绝大多数男香里都能闻到它的影子。',
+    '馥奇调的经典三角是：薰衣草（顶部、草本、粉质）＋橡苔（底部、苔藓、微苦的湿气）＋零陵香豆／香豆素（甜暖的干草与杏仁感）。这三者一立，香气立刻就有了「刚刮完胡子、穿着体面」的理容感，这是馥奇调最核心的情绪。',
+    '馥奇调的四大方向：经典薰苔的复古优雅、现代清爽的年轻版本（多以佛手柑＋降龙涎香醚取代重苔）、甜香豆的性感暖甜、以及辛香木质理容感（茴香、皮革、橡苔）。它是男香／中性香里最重要的一支传统，也是「成熟」这件事最常见的表达方式。',
+    '下面 5 题帮你判断：你要的是经典复古、现代清爽、甜暖香豆，还是辛香理容。'
+  ],
+  axes:{ classic:'经典薰苔', modern:'现代清爽', tonka:'甜香豆', barber:'辛香理容' },
+  questions:[
+    { q:'哪一幕画面对你最有吸引力？', options:[
+      { t:'老式理发店：皮椅、剃须刷、须后水', w:{ barber:3, classic:1 } },
+      { t:'雨后的森林，脚下是苔藓与枯叶', w:{ classic:3 } },
+      { t:'刚刮完胡子、清爽干净的下颌', w:{ modern:3 } },
+      { t:'晒干的薰衣草缝进布包里，旁边是一罐香草', w:{ tonka:3 } }
+    ]},
+    { q:'你更喜欢哪种质感？', options:[
+      { t:'复古、粉质、带苔藓的苦与湿', w:{ classic:3 } },
+      { t:'干净、辛辣、透明而当代', w:{ modern:3 } },
+      { t:'甜暖奶香，像香草与杏仁的暖流', w:{ tonka:3 } },
+      { t:'草本＋茴香＋皮革，硬朗有棱角', w:{ barber:3 } }
+    ]},
+    { q:'你最想用它应对什么场合？', options:[
+      { t:'正式、需要体面与分寸的场合', w:{ classic:3, barber:1 } },
+      { t:'日常通勤、见朋友、白天社交', w:{ modern:3 } },
+      { t:'约会与夜晚，想被靠近', w:{ tonka:3 } },
+      { t:'工作、谈判，需要可靠的气场', w:{ barber:3 } }
+    ]},
+    { q:'你希望它给人的印象是？', options:[
+      { t:'优雅古典、有教养', w:{ classic:3 } },
+      { t:'现代、利落、有存在感', w:{ modern:3 } },
+      { t:'性感撩人、温暖好亲近', w:{ tonka:3 } },
+      { t:'成熟可靠、值得托付', w:{ barber:3 } }
+    ]},
+    { q:'最后，挑一个你最想要的组合', options:[
+      { t:'薰衣草＋橡苔＋零陵香豆', w:{ classic:3 } },
+      { t:'佛手柑＋胡椒＋降龙涎香醚', w:{ modern:3 } },
+      { t:'薰衣草＋香草＋檀香', w:{ tonka:3 } },
+      { t:'茴香＋皮革＋橡苔＋香豆素', w:{ barber:3 } }
+    ]}
+  ],
+  perfumes:[
+    {
+      n:'姬琪', en:'Jicky', b:'Guerlain', year:1889, conc:'EDT / 香精', type:'沙龙香', gender:'中性', price:'价位 中高',
+      top:'佛手柑、柠檬、薰衣草', heart:'薰衣草、鸢尾、玫瑰、茉莉', base:'香草、零陵香豆、橡苔、麝香',
+      w:{ classic:3, tonka:2 },
+      desc:'姬琪比「皇家馥奇」晚七年，却是馥奇语法真正被确立的一座里程碑：薰衣草的草本粉感在上，橡苔的湿苦在下，零陵香豆与香草在中段把它们黏合成温暖的整体。它古老、复杂、略带动物感，闻起来像一间上世纪的图书馆。今天看它，依然是理解馥奇调最好的教材。',
+      why:'你偏好的是经典薰苔的复古优雅，愿意接受苔藓的苦与香豆素的暖。姬琪正是这套语法的源头，与你画像里经典薰苔的方向完全一致。',
+      tip:'秋冬、夜晚、正式场合；建议先试小样。喷在衣物内侧比皮肤上更温和，一两喷即可。',
+      similar:'想要更易上手的薰衣草，可试 Caron 卡朗男士；想要甜香豆的性感版本，可试 Jean Paul Gaultier 裸男。',
+      one:'馥奇语法的源头，复古而讲究'
+    },
+    {
+      n:'旷野', en:'Sauvage', b:'Dior', year:2015, conc:'EDT / EDP 淡香水', type:'商业香', gender:'中性偏男', price:'价位 中端',
+      top:'佛手柑、胡椒', heart:'薰衣草、四川花椒、天竺葵', base:'降龙涎香醚、雪松、香草',
+      w:{ modern:3, barber:1 },
+      desc:'旷野是当代最畅销的男香之一，也是馥奇调的现代改写：它保留了馥奇的骨架（佛手柑＋薰衣草），但把沉重的橡苔换成了干净透明的降龙涎香醚与雪松，于是整体变得明亮、辛辣、扩散极强。开场佛手柑与胡椒迅速抓住注意力，中段薰衣草与花椒维持清爽的辛香，尾调干净利落、留香很长。',
+      why:'你要的是现代、利落、有存在感的清爽辛香，不希望背着一身老派苔藓。旷野以馥奇骨架做出的当代版本，正是你画像里现代清爽的代表。',
+      tip:'四季皆可，通勤、白天、约会都好用；扩散很强，一到两喷足够。EDP 比 EDT 更圆润持久。',
+      similar:'想要更甜暖的薰衣草，可试 Jean Paul Gaultier 裸男；想要更复古的经典，可试 Guerlain 姬琪。',
+      one:'馥奇的现代改写，干净辛辣'
+    },
+    {
+      n:'裸男', en:'Le Male', b:'Jean Paul Gaultier', year:1995, conc:'EDT 淡香水', type:'商业香', gender:'中性偏男', price:'价位 中端',
+      top:'薄荷、薰衣草、佛手柑、小豆蔻', heart:'薰衣草、橙花、肉桂、孜然', base:'香草、零陵香豆、檀香、琥珀',
+      w:{ tonka:3, classic:1 },
+      desc:'裸男是「薰衣草＋香草」这条路线最成功的商业作品：开场薄荷与薰衣草清冽爽利，中段的薰衣草被肉桂与孜然带出一点异域的暖辛，尾调的香草、零陵香豆与檀香形成浓郁的甜暖怀抱。它既清新又性感，闻起来像刚洗完澡、还带着体温的皮肤，是九十年代之后最具辨识度的男香之一。',
+      why:'你要的是甜暖奶香、想被靠近的亲密感，同时保留薰衣草的草本底色。裸男的香豆素＋香草结构正是这种「洗完澡的性感」，与你画像里的甜香豆高度吻合。',
+      tip:'秋冬、夜晚、约会最合适；一喷在颈侧即可，扩散与留香都很强。夏天白天建议减量。',
+      similar:'想要更干净的现代辛香，可试 Dior 旷野；想要更硬朗的理容感，可试 Azzaro 阿莎罗男士。',
+      one:'薰衣草＋香草，洗完澡般的性感'
+    },
+    {
+      n:'阿莎罗男士', en:'Azzaro pour Homme', b:'Azzaro', year:1978, conc:'EDT 淡香水', type:'商业香', gender:'中性偏男', price:'价位 平价',
+      top:'薰衣草、茴香、佛手柑、罗勒', heart:'天竺葵、小豆蔻、雪松、广藿香', base:'橡苔、皮革、香豆素、麝香',
+      w:{ barber:3, classic:2 },
+      desc:'阿莎罗男士是七十年代馥奇男香的巅峰之一，也是「理容感」的教科书：开场薰衣草与茴香带来近乎辛辣的草本清爽，中段天竺葵与小豆蔻维持硬朗的辛香结构，尾调的橡苔、皮革与香豆素扎实、干燥、有分量。它闻起来像一个穿衬衫、举止得体的成熟男人，四十多年过去依然不过时。',
+      why:'你要的是草本＋茴香＋皮革的硬朗棱角，追求可靠与成熟的气场。阿莎罗男士正是这种辛香理容路线最经典的一支，与你画像里的辛香理容完全重合。',
+      tip:'秋冬与正式场合最出彩，也适合工作与谈判；留香 5–6 小时，扩散中等偏强。建议先适应它的老派气质。',
+      similar:'想要更清爽的现代版，可试 Dior 旷野；想要更甜的香豆素，可试 Jean Paul Gaultier 裸男。',
+      one:'茴香＋皮革＋橡苔，理容感的巅峰'
+    },
+    {
+      n:'烟草香草', en:'Tobacco Vanille', b:'Tom Ford', year:2007, conc:'EDP 淡香精', type:'沙龙香', gender:'中性', price:'价位 高端',
+      top:'烟草叶、辛香料', heart:'零陵香豆、烟草花、香草', base:'干果、木质、可可',
+      w:{ tonka:3, barber:2 },
+      desc:'烟草香草是「香豆素甜暖」这条线索在当代最著名的作品：干燥烟草叶与辛香料开场，零陵香豆与香草立刻带来浓郁的甜暖，像冬日小酒馆里雪茄混着热可可的气味。它的甜是被烘烤过的、带烟熏与木质骨架的甜，男性用显得沉稳，女性用则格外有气场。',
+      why:'你要的甜暖必须有辛香、烟草与木质的骨架支撑，越有分量越好。烟草香草的香豆素＋烟草结构正是这种成熟有力量的暖甜，是甜香豆方向最有气场的一支。',
+      tip:'秋冬、正式场合、晚间活动；一到两喷，喷在外套内侧最能展现气韵。高温天气不建议使用。',
+      similar:'喜欢辛香甜的深度，可延伸试 YSL 鸦片；想要更柔的薰衣草甜暖，可试 Jean Paul Gaultier 裸男。',
+      one:'烟草＋香豆素，成熟有分量的暖甜'
+    }
+  ]
+},
+
+/* ---------- 9. 西普调 ---------- */
+{
+  id:'chypre', name:'西普调', en:'Chypre', icon:'🍂',
+  tagline:'佛手柑＋橡苔＋劳丹脂，优雅、干爽、带一点苦的成熟感',
+  keywords:['橡苔','佛手柑','劳丹脂','广藿香','苔藓','果香西普'],
+  materials:'佛手柑、橡苔、劳丹脂、广藿香、玫瑰、茉莉、桃、荔枝、香根草',
+  intro:[
+    '西普（Chypre）得名于科西嘉岛上的塞浦路斯岛——1917 年 Guerlain 的「蝴蝶夫人」把这条路线推向成熟。它的经典结构是：顶部明亮的佛手柑，中间的花香（玫瑰、茉莉、桃），底部厚实的橡苔、劳丹脂与广藿香。闻起来有「明亮开场，暗色收尾」的戏剧性，优雅、干爽、带一点苦。',
+    '西普调的情绪与花香调截然不同：它不甜、不天真，属于「成年人的优雅」。苔藓的湿苦、劳丹脂的树脂暖意、广藿香的凉意泥土感，让整支香有一种沉稳的分量。这也是它在秋冬、正式场合、大衣与真丝上格外好看的原因。',
+    '当代西普出现了重要变化：由于橡苔原料受限，很多香水改用广藿香来重建那份「深色底座」，于是有了「现代西普」与「果香西普」（用桃、荔枝、血橙的甜去对撞苔藓的苦）这两条热门支线。它们比古典西普更好穿，也更年轻。',
+    '下面 5 题帮你判断：你要的是古典干爽、都市现代、果甜对撞，还是清冽的绿西普。'
+  ],
+  axes:{ classic:'古典干爽', modern:'现代广藿', fruity:'果香西普', green:'绿西普' },
+  questions:[
+    { q:'哪一幕画面最让你着迷？', options:[
+      { t:'打开一只旧木质抽屉，里面是一颗熟透的桃子', w:{ classic:3, fruity:1 } },
+      { t:'都市玻璃幕墙下走过，风衣被风掀起', w:{ modern:3 } },
+      { t:'荔枝与玫瑰摆在深色木桌上，甜与苦对望', w:{ fruity:3 } },
+      { t:'雨后的青苔、风信子与湿石头', w:{ green:3 } }
+    ]},
+    { q:'你更喜欢哪种质感？', options:[
+      { t:'干爽、微苦、苔藓般的苍老优雅', w:{ classic:3 } },
+      { t:'广藿香的凉意与泥土感，时髦有骨', w:{ modern:3 } },
+      { t:'果甜与苔苦正面冲撞，层次分明', w:{ fruity:3 } },
+      { t:'清冽的绿意，像揉碎的风信子茎', w:{ green:3 } }
+    ]},
+    { q:'你最想用它应对什么场合？', options:[
+      { t:'秋冬的正式晚宴与剧院', w:{ classic:3 } },
+      { t:'通勤与都市日常，保持利落', w:{ modern:3 } },
+      { t:'约会与需要一点甜美感的场合', w:{ fruity:3 } },
+      { t:'春日白天、需要清醒理智', w:{ green:3 } }
+    ]},
+    { q:'你希望它给人的印象是？', options:[
+      { t:'复古优雅，有年代的分量', w:{ classic:3 } },
+      { t:'都市时髦，独立有主见', w:{ modern:3 } },
+      { t:'甜美但有层次，不落俗套', w:{ fruity:3 } },
+      { t:'清冷知性，不轻易靠近', w:{ green:3 } }
+    ]},
+    { q:'最后，挑一个你最想要的组合', options:[
+      { t:'佛手柑＋桃＋橡苔＋劳丹脂', w:{ classic:3 } },
+      { t:'橙＋玫瑰＋荔枝＋广藿香', w:{ modern:3 } },
+      { t:'血橙＋玫瑰＋广藿香，甜苦对撞', w:{ fruity:3 } },
+      { t:'佛手柑＋风信子＋橡苔', w:{ green:3 } }
+    ]}
+  ],
+  perfumes:[
+    {
+      n:'蝴蝶夫人', en:'Mitsouko', b:'Guerlain', year:1919, conc:'EDT / EDP 淡香水', type:'沙龙香', gender:'偏女香', price:'价位 中高',
+      top:'佛手柑、柠檬、橙', heart:'桃、玫瑰、茉莉、丁香', base:'橡苔、劳丹脂、广藿香、香根草',
+      w:{ classic:3, fruity:2 },
+      desc:'蝴蝶夫人是西普调最著名的一座丰碑，也是「果香西普」的源头：开场佛手柑明亮、微苦，中段的桃子被称为香水史上最动人的一笔——它鲜嫩、微酸、带一点绒毛感，与玫瑰、茉莉一起浮在深色的苔藓底座上，形成甜与苦的对峙；尾调的橡苔、劳丹脂与香根草干燥、幽深，像黄昏的光。它闻起来像一个有故事的女人。',
+      why:'你要的是古典西普的干爽优雅，并且欣赏果甜与苔苦的对撞。蝴蝶夫人正是这条路线最经典的一支，与你画像里古典干爽的方向完全重合。',
+      tip:'秋冬、正式场合、晚宴最合适；EDP 更饱满圆润，EDT 保留更多锋利感。建议先试小样，古典西普有一定门槛。',
+      similar:'想要更好上手的果香西普，可试 Dior 迪奥小姐；想更都市现代，可试 Chanel 可可小姐。',
+      one:'桃＋橡苔，西普调的第一丰碑'
+    },
+    {
+      n:'可可小姐', en:'Coco Mademoiselle', b:'Chanel', year:2001, conc:'EDP 淡香精', type:'商业香', gender:'偏女香', price:'价位 中高',
+      top:'橙、佛手柑、荔枝', heart:'玫瑰、茉莉、荔枝', base:'广藿香、香根草、白麝香、香草',
+      w:{ modern:3, fruity:1 },
+      desc:'可可小姐是「现代西普」最成功的作品：它保留了西普的骨架——佛手柑开场、广藿香收尾——但把沉重的橡苔换成清爽的广藿香与白麝香，于是变得明亮、时髦、年轻。中段玫瑰与荔枝给出一层甜美的光泽，尾调的广藿香带来泥土与凉意，形成「甜而不腻、深而不沉」的效果。它是近二十年最畅销的女香之一，都市感极强。',
+      why:'你要的是时髦有骨、独立有主见的现代西普，希望它比古典版本更好穿。可可小姐的广藿香＋玫瑰结构正是你画像里现代广藿的最佳代表。',
+      tip:'四季皆可，通勤、约会、正式场合都好用；EDP 留香 8 小时以上，一至两喷足够。是「第一支西普」的安全入门。',
+      similar:'想要更古典的苔藓感，可试 Guerlain 蝴蝶夫人；想要更清冽的绿西普，可试 Chanel 水晶。',
+      one:'广藿香＋玫瑰，现代西普的标杆'
+    },
+    {
+      n:'迪奥小姐', en:'Miss Dior', b:'Dior', year:1947, conc:'EDP 淡香精', type:'商业香', gender:'偏女香', price:'价位 中高',
+      top:'血橙、柑橘', heart:'大马士革玫瑰、牡丹、铃兰', base:'广藿香、白麝香、琥珀木',
+      w:{ fruity:3, modern:1 },
+      desc:'迪奥小姐（现行 EDP 版本）是「果香西普」的当代代表：开场血橙与柑橘的酸甜明亮，中段的玫瑰与牡丹饱满、有光泽，尾调的广藿香带来凉意与深度，白麝香与琥珀木提供温暖收束。它把原版 1947 年的优雅骨架，翻译成了今天更轻盈、更甜美的语言，是商业香中最受欢迎的玫瑰之一。',
+      why:'你喜欢果甜的明亮，也需要苔藓或广藿香那一层深色底座来支撑。迪奥小姐用血橙＋玫瑰＋广藿香做出这种「甜苦对撞」，与你画像里的果香西普精准对应。',
+      tip:'四季皆宜，约会、通勤、白天社交都合适；留香 6–8 小时。比古典西普好上手得多，适合当入门。',
+      similar:'想要更都市时髦，可试 Chanel 可可小姐；想要更古典的分量，可试 Guerlain 蝴蝶夫人。',
+      one:'血橙＋玫瑰＋广藿香，甜苦对撞'
+    },
+    {
+      n:'水晶', en:'Cristalle', b:'Chanel', year:1974, conc:'EDT 淡香水', type:'商业香', gender:'偏女香', price:'价位 中高',
+      top:'佛手柑、柑橘、柠檬', heart:'风信子、茉莉、金银花', base:'橡苔、香根草、麝香',
+      w:{ green:3, classic:2 },
+      desc:'水晶是「绿西普」的优雅代表：开场佛手柑与柠檬清冽如水，中段风信子带来鲜明的绿意与一点点金属般的冷，茉莉与金银花提供薄薄的花香；尾调的橡苔与香根草干燥、有苔藓的湿苦，把整支香收成一片清冷的水色。它克制、知性、有距离感，是七十年代绿香的经典之一。',
+      why:'你要的绿是清冽、清醒、带一点冷的知性，并且欣赏苔藓的干爽。水晶的风信子＋橡苔结构正是绿西普最纯粹的一条，与你画像里的绿西普完全一致。',
+      tip:'春夏白天、通勤、正式场合；留香约 4 小时。适合气质清冷的人，与真丝衬衫或简洁剪裁很配。',
+      similar:'想要更都市现代的广藿香，可试 Chanel 可可小姐；想要更凛冽的绿，可试 Chanel 十九号。',
+      one:'风信子＋橡苔，清冽的绿西普'
+    }
+  ]
+},
+
+/* ---------- 10. 皮革调 ---------- */
+{
+  id:'leather', name:'皮革调', en:'Leather', icon:'🧳',
+  tagline:'麂皮、桦木与烟草，克制而有力量的第二层皮肤',
+  keywords:['麂皮','桦木','烟草','藏红花','苏合香','绒面革'],
+  materials:'桦木焦油、麂皮、苏合香、烟草、藏红花、皮革、蜂蜡、鸢尾',
+  intro:[
+    '皮革调的历史比香水本身更古老：最早的皮革鞣制要用到动物油脂与烟熏，于是「皮革」与「香气」从一开始就绑在一起。中世纪的皮革手套会浸香出售，那是第一批「香水」的形态之一。因此皮革调天生带着旧世界的味道——考究、克制、有一点暧昧。',
+    '现代皮革调里真正被使用的天然皮革原料很少，多数是用桦木焦油、苏合香、以及各种合成分子「搭」出的皮革质感。它的四个方向气质差别很大：绒面麂皮的柔软哑光、烟熏桦木的粗犷、花香皮革的温柔包裹、以及带果甜或香草的甜皮革。',
+    '皮革调常被认为是「重口味」，其实并不尽然——绒面皮革可以非常柔软、非常贴肤，几乎像第二层皮肤。真正让它有力量的是「骨架」而不是「重量」：一点烟、一点苦、一点温度，就能把香水从装饰变成气质。',
+    '下面 5 题帮你判断：你要的是麂皮、烟熏桦木、花香皮革，还是甜皮革。'
+  ],
+  axes:{ suede:'绒面麂皮', birch:'烟熏桦木', floral:'花香皮革', sweet:'甜皮革' },
+  questions:[
+    { q:'哪一种皮革的意象最吸引你？', options:[
+      { t:'一只干净柔软的麂皮手套，摸上去哑光温润', w:{ suede:3 } },
+      { t:'壁炉边烤着的皮靴，木头与烟一起升上来', w:{ birch:3 } },
+      { t:'皮衣领口里藏着一朵茉莉', w:{ floral:3 } },
+      { t:'覆盆子果酱泼在深色皮革上', w:{ sweet:3 } }
+    ]},
+    { q:'你更喜欢哪种质感？', options:[
+      { t:'柔软哑光、贴肤、近乎无攻击性', w:{ suede:3 } },
+      { t:'烟熏粗犷、干燥、有野性', w:{ birch:3 } },
+      { t:'温柔包裹，皮革只是花香的底衬', w:{ floral:3 } },
+      { t:'果甜与皮革冲撞，反差强烈', w:{ sweet:3 } }
+    ]},
+    { q:'你最想用它应对什么场合？', options:[
+      { t:'日常与通勤，需要低调的高级感', w:{ suede:3 } },
+      { t:'秋冬夜晚、户外、有故事的场合', w:{ birch:3 } },
+      { t:'约会，想显得温柔又讲究', w:{ floral:3 } },
+      { t:'派对与需要被记住的场合', w:{ sweet:3 } }
+    ]},
+    { q:'你希望它给人的印象是？', options:[
+      { t:'高级低调、温和可靠', w:{ suede:3 } },
+      { t:'叛逆、酷、有距离', w:{ birch:3 } },
+      { t:'知性优雅、有分寸', w:{ floral:3 } },
+      { t:'性感、张扬、有戏剧性', w:{ sweet:3 } }
+    ]},
+    { q:'最后，挑一个你最想要的组合', options:[
+      { t:'麂皮＋麝香＋琥珀，柔软贴肤', w:{ suede:3 } },
+      { t:'桦木＋烟草＋香根草，烟熏干燥', w:{ birch:3 } },
+      { t:'皮革＋茉莉＋鸢尾，温柔包裹', w:{ floral:3 } },
+      { t:'皮革＋覆盆子＋藏红花，甜苦冲撞', w:{ sweet:3 } }
+    ]}
+  ],
+  perfumes:[
+    {
+      n:'白麂皮', en:'White Suede', b:'Tom Ford', year:2009, conc:'EDP 淡香精', type:'沙龙香', gender:'中性', price:'价位 高端',
+      top:'藏红花、百里香、茶', heart:'玫瑰、铃兰、乳香', base:'麂皮、白麝香、琥珀',
+      w:{ suede:3, floral:2 },
+      desc:'白麂皮是皮革调里最「温柔」的一支：它几乎没有烟熏与粗犷，只有一层柔软、哑光、带白麝香温度的麂皮。开场藏红花与百里香带来一点辛香与茶的清苦，中段玫瑰与铃兰把皮革衬得干净柔和，尾调的白麝香与琥珀让它彻底贴到皮肤上。闻起来像一件刚洗过、还很新的羊绒大衣。',
+      why:'你要的皮革是柔软哑光、贴肤、没有攻击性的那种，希望它成为「第二层皮肤」。白麂皮正是这种最温柔的皮革表达，与你画像里的绒面麂皮完全一致。',
+      tip:'四季皆可，通勤、办公、白天社交都非常得体；留香约 6 小时。是皮革调最安全的入门，男女皆宜。',
+      similar:'想要更烟熏的皮革，可试 Chanel 俄罗斯皮革；想要花香更明显的皮革，可试 Bottega Veneta 同名。',
+      one:'柔软哑光的麂皮，贴肤无攻击性'
+    },
+    {
+      n:'俄罗斯皮革', en:'Cuir de Russie', b:'Chanel', year:1924, conc:'EDP 淡香精', type:'沙龙香', gender:'偏女香', price:'价位 高端',
+      top:'橙花、佛手柑、依兰依兰', heart:'鸢尾、玫瑰、茉莉、雪松', base:'桦木、皮革、烟草、香根草',
+      w:{ birch:3, floral:1 },
+      desc:'俄罗斯皮革的名字来自沙俄骑兵用桦木焦油保养皮靴的传统：开场的橙花与依兰明亮得近乎华丽，随后鸢尾与花香在中段铺开，而尾调的桦木、皮革与烟草才是真正的核心——干燥、微苦、带一点烟草般的粗粝，是香水史上最著名的烟熏皮革之一。它优雅又有野性，闻起来像一件被穿了很多年的骑马外套。',
+      why:'你要的是烟熏、干燥、有野性与故事感的皮革，也欣赏经典香水的分量。俄罗斯皮革的桦木＋烟草结构正是这种粗粝的优雅，与你画像里的烟熏桦木高度吻合。',
+      tip:'秋冬、夜晚、正式或半正式场合；一至两喷，喷在外套与围巾上尤其出色。适合有一定香水经验的人。',
+      similar:'想要更柔软贴肤的皮革，可试 Tom Ford 白麂皮；想要更甜的果皮革，可试 Tom Ford 托斯卡纳皮革。',
+      one:'桦木＋烟草，最著名的烟熏皮革'
+    },
+    {
+      n:'同名香水', en:'Bottega Veneta', b:'Bottega Veneta', year:2011, conc:'EDP 淡香精', type:'商业香', gender:'偏女香', price:'价位 中高',
+      top:'佛手柑、粉红胡椒', heart:'茉莉、栀子花', base:'皮革、广藿香、橡苔',
+      w:{ floral:3, suede:2 },
+      desc:'这支香把皮革做成了「花香的外套」：开场佛手柑与粉红胡椒干净微辛，中段的茉莉与栀子花饱满、柔白，尾调的皮革与广藿香才是它的骨架——柔软、不烟熏，带着一点苔藓的苦。它的皮革存在感恰到好处：既有质感，又不会压住花香，是商业香中最优雅的皮革之一。',
+      why:'你要的是温柔包裹、皮革只作底衬的花香皮革，希望它知性而讲究。这支同名的茉莉＋软皮革结构正是这种「花香穿外套」的表达，与你画像里的花香皮革精准对应。',
+      tip:'秋冬与初春、通勤、约会、正式场合都合适；留香约 6–8 小时。建议喷在手腕与颈侧，温度能让皮革更柔。',
+      similar:'想要更烟熏的皮革，可试 Chanel 俄罗斯皮革；想要更甜的果皮革，可试 Tom Ford 托斯卡纳皮革。',
+      one:'茉莉＋软皮革，花香穿上了外套'
+    },
+    {
+      n:'托斯卡纳皮革', en:'Tuscan Leather', b:'Tom Ford', year:2007, conc:'EDP 淡香精', type:'沙龙香', gender:'中性', price:'价位 高端',
+      top:'藏红花、覆盆子、百里香', heart:'茉莉、玫瑰、乳香', base:'皮革、麂皮、琥珀、木质',
+      w:{ sweet:3, birch:1 },
+      desc:'托斯卡纳皮革是「甜皮革」中最出名的一支：开场藏红花与覆盆子同时出现，果甜的酸与藏红花的药感正面冲撞，非常刺激；中段的茉莉与玫瑰短短地浮现，尾调的皮革与麂皮扎实、油润、有分量。它大胆、浓烈、辨识度极高，是很多人心中「最强皮革」的代表。',
+      why:'你要的是果甜与皮革的强烈反差、有戏剧性的性感。托斯卡纳皮革的覆盆子＋藏红花＋皮革结构正是这种冲撞，与你画像里的甜皮革完全吻合。',
+      tip:'秋冬夜晚、派对、需要被记住的场合；一到两喷，扩散极强。建议先小样试香，接受度比较两极。',
+      similar:'想要更烟熏的皮革，可试 Chanel 俄罗斯皮革；想要更温和的皮革，可试 Bottega Veneta 同名。',
+      one:'覆盆子＋藏红花＋皮革，最张扬的甜皮革'
+    }
+  ]
+},
+
+/* ---------- 11. 木质调 ---------- */
+{
+  id:'woody', name:'木质调', en:'Woody', icon:'🌲',
+  tagline:'檀香、雪松与沉香，稳定、温暖、最有包容力的底色',
+  keywords:['檀香','雪松','香根草','沉香','愈创木','广藿香'],
+  materials:'檀香、雪松、香根草、沉香（乌木）、愈创木、广藿香、松木、桃花心木',
+  intro:[
+    '木质调是香水世界的地基。它可以是主角，也几乎可以是任何一支香的底座——花香、柑橘、东方调里常见的「尾调」，往往就是木质与麝香。木头给人的感受是稳定、耐久、可靠，因此木质调也是最不挑性别、最耐穿、最适合日常的一类香。',
+    '木质调的四个方向：奶香檀木（温润、奶油感、有乳香）；干爽雪松与香根草（清洁、干燥、带铅笔屑或泥土感）；沉香油润（浓郁、树脂感、带药感与辛香）；以及烟熏火炉（愈创木、香草、焦糖化的木头，温暖而甜）。',
+    '一个常见的误区是把木质调等同于「男香」或「老气」。事实上当代木质调是最中性的香调之一：Le Labo 檀香 33 让檀香变成文艺青年的制服，By the Fireplace 把木头做成冬日的甜暖，Hermès 大地则把柑橘与香根草连成一条坦荡的路。',
+    '下面 5 题帮你判断：你要的是奶香檀木、干爽雪松香根草、油润沉香，还是烟熏火炉。'
+  ],
+  axes:{ sandal:'奶香檀木', cedar:'干爽雪松', oud:'油润沉香', smoky:'烟熏火炉' },
+  questions:[
+    { q:'哪一幕木质画面最让你安心？', options:[
+      { t:'一件老檀木家具，摸上去温润，还留着奶香', w:{ sandal:3 } },
+      { t:'雨后的松林，树皮与湿土的气息', w:{ cedar:3 } },
+      { t:'中东市集里堆着的沉香木块与树脂', w:{ oud:3 } },
+      { t:'壁炉里烧着的木头，旁边有一杯热可可', w:{ smoky:3 } }
+    ]},
+    { q:'你更喜欢哪种木质质感？', options:[
+      { t:'奶香温润、圆润、带一点乳香', w:{ sandal:3 } },
+      { t:'干燥清爽、有铅笔屑与草根的干净', w:{ cedar:3 } },
+      { t:'油润深沉、树脂感强、带药香与辛香', w:{ oud:3 } },
+      { t:'烟熏甜暖，像被毯子与火包住', w:{ smoky:3 } }
+    ]},
+    { q:'你最常在什么场合需要它？', options:[
+      { t:'日常通勤与办公，需要稳定陪伴', w:{ sandal:3 } },
+      { t:'四季白天，想保持清爽得体', w:{ cedar:3 } },
+      { t:'夜晚与重要场合，想要分量感', w:{ oud:3 } },
+      { t:'秋冬居家、窝在沙发上的时刻', w:{ smoky:3 } }
+    ]},
+    { q:'你希望它给人的印象是？', options:[
+      { t:'文艺中性、温和有质感', w:{ sandal:3 } },
+      { t:'沉稳可靠、干净利落', w:{ cedar:3 } },
+      { t:'神秘浓郁、有异域气度', w:{ oud:3 } },
+      { t:'慵懒舒适、充满生活感', w:{ smoky:3 } }
+    ]},
+    { q:'最后，挑一个你最想要的组合', options:[
+      { t:'檀香＋小豆蔻＋鸢尾＋皮革', w:{ sandal:3 } },
+      { t:'雪松＋香根草＋葡萄柚＋燧石', w:{ cedar:3 } },
+      { t:'沉香＋玫瑰木＋小豆蔻＋香草', w:{ oud:3 } },
+      { t:'愈创木＋栗子＋香草＋秘鲁香脂', w:{ smoky:3 } }
+    ]}
+  ],
+  perfumes:[
+    {
+      n:'檀香 33', en:'Santal 33', b:'Le Labo', year:2011, conc:'EDP 淡香精', type:'沙龙香', gender:'中性', price:'价位 高端',
+      top:'紫罗兰叶、小豆蔻', heart:'鸢尾、纸莎草、紫罗兰', base:'檀香、雪松、皮革、琥珀、麝香',
+      w:{ sandal:3, cedar:1 },
+      desc:'檀香 33 是当代最出圈的沙龙香之一：它以澳大利亚檀香为核心，但并非甜腻的奶檀，而是带一点烟熏、干燥、皮革感的硬朗檀木。开场紫罗兰叶与小豆蔻清爽微辛，中段纸莎草与鸢尾给出一层干燥的「纸张与木头屑」，尾调的檀香、雪松与皮革扎实耐闻。它闻起来像一间堆满旧书与木箱的房间。',
+      why:'你要的是温润、有质感、文艺中性的木质，希望它有辨识度而不是甜腻。檀香 33 的檀木＋纸莎草结构正是这种有格调的木头，与你画像里的奶香檀木方向一致。',
+      tip:'四季皆可，通勤、办公、秋冬白天都好穿；留香 6–8 小时。扩散明显但不过分，一至两喷足够，男女皆宜。',
+      similar:'想要更干净的雪松与香根草，可试 Hermès 大地；想要更暖的烟熏木，可试 Maison Margiela 壁炉边。',
+      one:'烟熏檀木，文艺中性的当代经典'
+    },
+    {
+      n:'大地', en:'Terre d\'Hermès', b:'Hermès', year:2006, conc:'EDT 淡香水', type:'商业香', gender:'中性偏男', price:'价位 中高',
+      top:'葡萄柚、橙', heart:'胡椒、天竺葵、燧石', base:'雪松、香根草、安息香',
+      w:{ cedar:3, sandal:1 },
+      desc:'大地是「干爽木质」的代表作：开场葡萄柚明亮微苦，中段的胡椒与燧石带来独特的矿物干燥感，像被太阳晒热的石头；尾调的雪松与香根草坦荡、扎实、毫不花哨。它把柑橘的清爽延长进木质的沉稳，是近二十年最成功的男香之一，也被大量女性日常使用。',
+      why:'你要的是干燥清爽、有草根与铅笔屑感的木质，希望它沉稳可靠。大地的雪松＋香根草＋燧石结构正是这种干爽的木头，与你画像里的干爽雪松完全重合。',
+      tip:'四季皆可，通勤、正式场合、白天社交都很得体；留香约 6 小时。想更浓郁可选 Parfum 版本。',
+      similar:'想要更油润的沉香，可试 Tom Ford 乌木沉香；想要更文艺的檀木，可试 Le Labo 檀香 33。',
+      one:'雪松＋香根草＋燧石，干爽坦荡'
+    },
+    {
+      n:'乌木沉香', en:'Oud Wood', b:'Tom Ford', year:2007, conc:'EDP 淡香精', type:'沙龙香', gender:'中性', price:'价位 高端',
+      top:'沉香、玫瑰木、小豆蔻', heart:'檀香、花椒、香草', base:'琥珀、零陵香豆、麝香',
+      w:{ oud:3, sandal:2 },
+      desc:'乌木沉香是很多人心中「最好上手的沉香」：它把沉香处理得圆润、干净，去掉了天然乌木可能带来的强烈动物感与药苦。开场沉香与玫瑰木沉稳，小豆蔻带来一点辛香；中段的檀香、花椒与香草把木头烘得温暖油润；尾调的琥珀与零陵香豆给出持久贴肤的收束。浓郁、有分量，却不脏。',
+      why:'你要的是油润深沉、有树脂与辛香分量的木质，愿意接受浓郁的存在感。乌木沉香的沉香＋檀香＋香草结构正是这种圆润的异域木香，与你画像里的油润沉香高度吻合。',
+      tip:'秋冬、夜晚、正式场合最合适；一至两喷，扩散与留香都很强（8 小时以上）。夏天白天建议减量。',
+      similar:'想要更干爽的雪松，可试 Hermès 大地；想要更甜的烟熏木，可试 Maison Margiela 壁炉边。',
+      one:'圆润干净的沉香，浓郁而不脏'
+    },
+    {
+      n:'壁炉边', en:'By the Fireplace', b:'Maison Margiela Replica', year:2015, conc:'EDT 淡香水', type:'沙龙香', gender:'中性', price:'价位 中高',
+      top:'丁香、粉红胡椒、橙花', heart:'栗子、愈创木、开司米木', base:'香草、秘鲁香脂、开司米木',
+      w:{ smoky:3, sandal:1 },
+      desc:'壁炉边是「烟熏甜木」的完美复刻：开场丁香与粉红胡椒带着一点点辛辣，中段的栗子与愈创木立刻把画面拉到冬天的火炉旁——烤栗子的甜、木柴的烟、空气里的暖；尾调的香草与秘鲁香脂浓郁绵长，像裹着毛毯喝热可可。它的甜来自木头和栗子，而不是糖，因此格外有安全感。',
+      why:'你要的是烟熏甜暖、像被毯子包住的木头，追求慵懒舒适的生活感。壁炉边的愈创木＋栗子＋香草结构正是这种「火炉边的暖」，与你画像里的烟熏火炉精准对应。',
+      tip:'秋冬、居家、夜晚、约会都很合适；留香约 6 小时。夏天使用会显得过重，建议只在凉爽天气穿。',
+      similar:'想要更硬朗的檀木，可试 Le Labo 檀香 33；想要更浓郁的沉香，可试 Tom Ford 乌木沉香。',
+      one:'栗子＋愈创木＋香草，火炉边的暖'
+    },
+    {
+      n:'谭道', en:'Tam Dao', b:'Diptyque', year:2003, conc:'EDT / EDP 淡香水', type:'沙龙香', gender:'中性', price:'价位 中高',
+      top:'柏木、玫瑰木、香桃木', heart:'檀香、雪松、甜没药', base:'白麝香、琥珀、巴西红木',
+      w:{ sandal:3, cedar:2 },
+      desc:'谭道的名字来自越南的一座山，它描绘的是「刚刨过的檀木」：开场柏木与玫瑰木干燥清爽，带一点木屑的辛香；中段的檀香温润、微奶、毫无甜腻，是它最动人的部分；尾调的白麝香与琥珀给出柔和贴肤的暖。它比檀香 33 更安静、更干净，是很多人心中最正宗的「檀木香」。',
+      why:'你要的是奶香温润、圆润安静的檀木，喜欢它贴近皮肤而不张扬。谭道的檀香＋柏木结构正是这种干净的奶檀，与你画像里的奶香檀木高度一致。',
+      tip:'四季皆可，通勤、阅读、居家都很好穿；EDT 清透、EDP 更饱满。男女皆宜，是檀香入门的上佳选择。',
+      similar:'想要更烟熏个性的檀木，可试 Le Labo 檀香 33；想要更干爽的雪松，可试 Hermès 大地。',
+      one:'干净的奶檀，安静而温润'
+    }
+  ]
+},
+
+/* ---------- 12. 东方调 ---------- */
+{
+  id:'oriental', name:'东方调', en:'Oriental / Amber', icon:'🔥',
+  tagline:'琥珀、香料与树脂，浓郁、神秘、最有气场的一类香',
+  keywords:['琥珀','香草','辛香料','焚香','树脂','麝香'],
+  materials:'琥珀、香草、乳香、没药、安息香、肉桂、丁香、劳丹脂、麝香、晚香玉',
+  intro:[
+    '东方调是西方人对「东方」的想象所创造的名字——它的原料大多来自树脂、香料与香脂：乳香、没药、安息香、肉桂、丁香、琥珀。这些材料自古以来就是祭祀、贸易与贵族的象征，所以东方调天生带有仪式感与分量，是最「浓」、最「暖」、也最容易被记住的一类香。',
+    '东方调的四个方向：琥珀香草的暖甜、辛香东方的浓烈（肉桂、丁香、没药）、焚香树脂的宗教感（乳香、没药、劳丹脂）、以及白花东方——用晚香玉、茉莉这类浓郁白花叠上辛香与琥珀，做出艳丽的夜之香。',
+    '东方调最适合秋冬与夜晚，在低温下它像一件厚外套，在夏天则容易变得压迫。它也是「气场」最直接的一类香：很多著名的「女王香」「男神香」都出自这里。使用东方调的关键只有一个字——少。一两喷，足够撑起整个夜晚。',
+    '下面 5 题帮你判断：你要的是琥珀暖甜、辛香浓烈、焚香仪式感，还是艳丽的白花东方。'
+  ],
+  axes:{ amber:'琥珀暖甜', spicy:'辛香浓烈', incense:'焚香树脂', white:'白花东方' },
+  questions:[
+    { q:'哪一种东方的画面最让你心动？', options:[
+      { t:'一块温热的琥珀，在灯下透出暖金色的光', w:{ amber:3 } },
+      { t:'香料市集：肉桂、丁香、胡椒堆成小山', w:{ spicy:3 } },
+      { t:'古老的教堂里，熏香缓缓升起', w:{ incense:3 } },
+      { t:'夜色里的白花，浓艳、危险、无法忽视', w:{ white:3 } }
+    ]},
+    { q:'你更喜欢哪种质感？', options:[
+      { t:'甜暖温热，像香草与琥珀的暖流', w:{ amber:3 } },
+      { t:'辛辣浓烈，一开口就抓住全场', w:{ spicy:3 } },
+      { t:'树脂烟熏，安静却有神性', w:{ incense:3 } },
+      { t:'丰满白花＋辛香，华丽而艳', w:{ white:3 } }
+    ]},
+    { q:'你最想用它应对什么场合？', options:[
+      { t:'冬夜、居家、想被温暖包住的时刻', w:{ amber:3 } },
+      { t:'晚宴与派对，需要强烈的存在感', w:{ spicy:3 } },
+      { t:'独处、阅读、需要安静仪式的时刻', w:{ incense:3 } },
+      { t:'重要的夜晚，想让人记住你', w:{ white:3 } }
+    ]},
+    { q:'你希望它给人的印象是？', options:[
+      { t:'温柔暖香，让人想靠近', w:{ amber:3 } },
+      { t:'强大、有分量、气场十足', w:{ spicy:3 } },
+      { t:'神秘、内敛、有精神性', w:{ incense:3 } },
+      { t:'性感浓烈、艳丽迷人', w:{ white:3 } }
+    ]},
+    { q:'最后，挑一个你最想要的组合', options:[
+      { t:'香草＋琥珀＋皮革＋鸢尾', w:{ amber:3 } },
+      { t:'丁香＋肉桂＋没药＋琥珀', w:{ spicy:3 } },
+      { t:'乳香＋没药＋劳丹脂＋月桂叶', w:{ incense:3 } },
+      { t:'晚香玉＋茉莉＋肉桂＋琥珀', w:{ white:3 } }
+    ]}
+  ],
+  perfumes:[
+    {
+      n:'一千零一夜', en:'Shalimar', b:'Guerlain', year:1925, conc:'EDP 淡香精 / 香精', type:'沙龙香', gender:'偏女香', price:'价位 中高',
+      top:'佛手柑、柠檬、橙花', heart:'鸢尾、茉莉、玫瑰、香根草', base:'香草、零陵香豆、皮革、琥珀、麝香',
+      w:{ amber:3, white:1 },
+      desc:'一千零一夜是东方调的奠基之作，也是「琥珀＋香草」这条路线最重要的作品：开场佛手柑与柠檬明亮得几乎轻佻，随后香草、零陵香豆与琥珀从底部涌上来，形成浓郁的暖甜；鸢尾与茉莉在中段提供粉质与花的柔软，尾调的皮革与麝香给出一层贴肤的动物感。它有欲望、有异域感、有一点危险，是香水史上最著名的「暖香」之一。',
+      why:'你要的是琥珀与香草构成的暖甜，希望它温柔、有包容力、能让人靠近。一千零一夜正是这条路线最经典的结构，与你画像里的琥珀暖甜完全重合。',
+      tip:'秋冬、夜晚、正式场合；EDP 相对温和，香精版本极浓。一到两喷，喷在手腕与颈侧慢慢升温最好。',
+      similar:'想要更辛香浓烈的东方，可试 YSL 鸦片；想要更艳的白花东方，可试 Dior 毒药。',
+      one:'琥珀＋香草，东方调的奠基之作'
+    },
+    {
+      n:'鸦片', en:'Opium', b:'Yves Saint Laurent', year:1977, conc:'EDP 淡香精', type:'商业香', gender:'偏女香', price:'价位 中高',
+      top:'芫荽、丁香、胡椒、橙', heart:'肉桂、康乃馨、茉莉、玫瑰、没药', base:'琥珀、广藿香、香草、乳香、檀香',
+      w:{ spicy:3, amber:2 },
+      desc:'鸦片是七十年代最大胆的香水之一：开场芫荽、丁香与胡椒的辛香直接冲上来，中段的肉桂与康乃馨浓郁、艳丽、带一点辛辣的花感，尾调的琥珀、没药与香草形成厚重甜暖的底座。它气味浓烈、气场强大，一喷就能充满整个房间，是「东方辛香」这个方向的绝对标杆。',
+      why:'你要的是辛香浓烈、一开口就抓住全场的气场。鸦片的丁香＋肉桂＋没药结构正是这种浓艳的东方，与你画像里的辛香浓烈高度吻合。',
+      tip:'秋冬夜晚、晚宴、派对；一喷足够，扩散极强。建议喷在外套内侧或围巾上，留香可超过 10 小时。',
+      similar:'想要更柔的琥珀暖甜，可试 Guerlain 一千零一夜；想要更艳的白花，可试 Dior 毒药。',
+      one:'丁香＋肉桂＋没药，最具气场的东方'
+    },
+    {
+      n:'毒药', en:'Poison', b:'Dior', year:1985, conc:'EDP 淡香精', type:'商业香', gender:'偏女香', price:'价位 中高',
+      top:'芫荽、李子、八角、胡椒', heart:'晚香玉、玫瑰、康乃馨、茉莉、肉桂', base:'琥珀、麝香、檀香、乳香',
+      w:{ white:3, spicy:2 },
+      desc:'毒药是八十年代最张扬的香水：李子与八角开场，果甜里带着药感与辛辣，随后晚香玉、茉莉这些浓郁白花全面绽放，与肉桂、康乃馨叠成一片浓艳的花海；尾调的琥珀与乳香厚重绵长。它甜、艳、浓、有攻击性，是「白花东方」这个方向最著名的代表，也是香水史上被模仿最多的香之一。',
+      why:'你要的是艳丽、浓烈、让人记住的夜之香，愿意接受白花的张扬。毒药的晚香玉＋肉桂＋琥珀结构正是这种浓艳的白花东方，与你画像里的白花东方精准对应。',
+      tip:'秋冬夜晚、晚宴与派对；一喷即可，扩散与留香都极强。夏天与办公室不建议。适合有经验、喜欢浓香的人。',
+      similar:'想要更辛香的花香，可试 YSL 鸦片；想要更柔的琥珀暖甜，可试 Guerlain 一千零一夜。',
+      one:'晚香玉＋肉桂＋琥珀，最艳的夜之香'
+    },
+    {
+      n:'琥珀苏丹', en:'Ambre Sultan', b:'Serge Lutens', year:1993, conc:'EDP 淡香精', type:'沙龙香', gender:'中性', price:'价位 高端',
+      top:'月桂叶、牛至、芫荽', heart:'琥珀、没药、安息香', base:'香草、檀香、广藿香、麝香',
+      w:{ incense:3, amber:2 },
+      desc:'琥珀苏丹是当代树脂琥珀的标杆：开场月桂叶与牛至这类地中海香草带来干燥、微苦的草本气息，紧接着琥珀、没药与安息香从底部升起，形成浓郁、油润、带烟熏感的树脂暖意；尾调的香草与檀香把它收得温厚绵长。它闻起来像一座古老的香料仓库，安静、有分量、几乎有神性。',
+      why:'你要的是树脂烟熏的仪式感，安静却有精神性。琥珀苏丹的没药＋乳香＋琥珀结构正是这种内敛的宗教感暖香，与你画像里的焚香树脂完全一致。',
+      tip:'秋冬、夜晚、独处或仪式感场合；一至两喷，留香极久。它可以当作「香气冥想」来用，不适合追求清新的人。',
+      similar:'想要更甜的琥珀，可试 Guerlain 一千零一夜；想要更浓辛的东方，可试 YSL 鸦片。',
+      one:'没药＋琥珀，树脂焚香的仪式感'
+    }
+  ]
+}
+];
+
+/* =========================================================
+   状态与工具
+   ========================================================= */
+const state = { view:'home', fid:null, qi:0, answers:[], result:null, busy:false };
+const app = document.getElementById('app');
+const findF = id => FAMILIES.find(f => f.id === id);
+const LETTERS = ['A','B','C','D','E'];
+let lastFocus = null;
+
+/* ---- 打分：把答案映射到四个方向轴，再与每支香的权重做点积 ---- */
+function computeResult(f, answers){
+  const axes = Object.keys(f.axes);
+  const score = {}; axes.forEach(a => score[a] = 0);
+  answers.forEach((oi, qi) => {
+    const opt = f.questions[qi].options[oi];
+    if(!opt) return;
+    for(const k in opt.w) score[k] = (score[k] || 0) + opt.w[k];
+  });
+  /* 每支香的契合度：逐题取「对它最有利的选项」作为满分，再算实际得分占比 */
+  const ranked = f.perfumes.map(p => {
+    let num = 0, den = 0;
+    f.questions.forEach((q, qi) => {
+      const opt = q.options[answers[qi]];
+      if(opt) for(const k in opt.w) num += opt.w[k] * (p.w[k] || 0);
+      let best = 0;
+      q.options.forEach(o => {
+        let s = 0;
+        for(const k in o.w) s += o.w[k] * (p.w[k] || 0);
+        if(s > best) best = s;
+      });
+      den += best;
+    });
+    const ratio = den ? num / den : 0;
+    const pct = Math.max(55, Math.min(99, Math.round(55 + 44 * ratio)));
+    return { p, pct, ratio, num };
+  }).sort((a, b) => b.ratio - a.ratio);
+  /* 用户画像：得分最高的两个方向 */
+  const profile = axes.map(a => ({ a, label:f.axes[a], v:score[a] || 0 }))
+                      .sort((x, y) => y.v - x.v);
+  const maxV = Math.max(1, profile[0].v);
+  return { ranked, profile, maxV, score };
+}
+
+/* =========================================================
+   视图
+   ========================================================= */
+function viewHome(){
+  return `
+  <section class="hero view">
+    <span class="eyebrow">12 大香调 · 12 套专属测试</span>
+    <h2 class="hero-title">找到那支<br><em>写着你的名字</em>的香水</h2>
+    <p class="hero-sub">先选一个让你心动的香调，再回答 5 道关于气味偏好、穿着场景与气质的小问题。
+      我们会从该香调里为你挑出 1–2 支最合适的代表作，并把它完整的前调、中调、后调与推荐理由写清楚。</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" data-act="random">✨ 帮我随机挑一个香调</button>
+      <button class="btn btn-ghost" data-act="scrollGrid">看看全部香调</button>
+    </div>
+    <div class="hero-notes"><span>57 支代表香水</span><span>60 道香调专属问题</span><span>随时可重置</span></div>
+  </section>
+  <section class="grid view" id="grid">${FAMILIES.map(cardHTML).join('')}</section>
+  <section class="panel view" style="margin-top:34px">
+    <h3>怎么用这个小测试？</h3>
+    <div class="axes-list">
+      <div><b></b><span>不确定自己属于哪个香调？先点开任意一个香调读它的「总体介绍」，觉得心动就进去做测试。</span></div>
+      <div><b></b><span>测试题均为该香调量身设计，比如花香调问「你希望花香像清晨野花还是夜里盛开的白花」，皮革调问「干净的麂皮手套还是壁炉里的烟」。</span></div>
+      <div><b></b><span>结果会给出 1–2 支推荐香水，含品牌、年份、浓度、价位区间、前中后调与契合度；可随时重测或换个香调，也可以一键重置回到首页。</span></div>
+    </div>
+  </section>`;
+}
+
+function cardHTML(f, i){
+  return `
+  <button class="fam-card" data-act="open" data-id="${f.id}" style="--d:${i * 45}ms">
+    <span class="fc-icon">${f.icon}</span>
+    <span class="fc-name">${f.name}<em>${f.en}</em></span>
+    <span class="fc-tag">${f.tagline}</span>
+    <span class="fc-chips">${f.keywords.slice(0, 3).map(k => `<i>${k}</i>`).join('')}</span>
+    <span class="fc-cta">进入测试 →</span>
+  </button>`;
+}
+
+function viewFamily(f){
+  return `
+  <div class="view">
+    <button class="backlink" data-act="home">← 返回香调总览</button>
+    <section class="fam-hero">
+      <div class="fh-top">
+        <div class="fh-icon">${f.icon}</div>
+        <div>
+          <h2 class="fh-title">${f.name}<em>${f.en}</em></h2>
+          <p class="fh-tag">${f.tagline}</p>
+        </div>
+      </div>
+      <div class="fh-body">
+        ${f.intro.map((p, i) => `<p class="${i === 0 ? 'first' : ''}">${p}</p>`).join('')}
+      </div>
+      <div class="fh-meta">
+        <div class="mbox">
+          <h4>这个香调的四个方向</h4>
+          <div class="axes-list">${Object.keys(f.axes).map(a => `<div><b></b><span>${f.axes[a]}</span></div>`).join('')}</div>
+        </div>
+        <div class="mbox">
+          <h4>关键词</h4>
+          <div class="tags">${f.keywords.map(k => `<i>${k}</i>`).join('')}</div>
+        </div>
+        <div class="mbox">
+          <h4>代表性香材</h4>
+          <div class="tags">${f.materials.split('、').map(k => `<i class="gold">${k}</i>`).join('')}</div>
+        </div>
+      </div>
+      <div class="cta-row">
+        <button class="btn btn-primary" data-act="start" data-id="${f.id}">开始 ${f.name}测试 · 5 题</button>
+        <span class="hint">约 1 分钟 · 选完立刻出结果</span>
+      </div>
+    </section>
+    <section class="preview">
+      <h3>本香调待推荐的 ${f.perfumes.length} 支代表作</h3>
+      <div class="pv-grid">
+        ${f.perfumes.map(p => `
+          <div class="pv">
+            <h5>${p.n}</h5>
+            <span>${p.b} · ${p.year} · ${p.conc}</span>
+            <i>${p.type}</i>
+          </div>`).join('')}
+      </div>
+    </section>
+  </div>`;
+}
+
+function viewQuiz(f){
+  const q = f.questions[state.qi];
+  const pct = (state.qi / f.questions.length) * 100;
+  return `
+  <div class="quiz view">
+    <div class="quiz-top">
+      <button class="backlink" data-act="open" data-id="${f.id}">← ${f.icon} ${f.name}介绍</button>
+      <span class="qcount">第 ${state.qi + 1} / ${f.questions.length} 题</span>
+    </div>
+    <div class="bar"><span style="width:${pct}%"></span></div>
+    <div class="qcard">
+      <h2 class="qtext">${q.q}</h2>
+      <div class="opts">
+        ${q.options.map((o, i) => `
+          <button class="opt" data-act="pick" data-i="${i}">
+            <b>${LETTERS[i]}</b><span>${o.t}</span>
+          </button>`).join('')}
+      </div>
+      <div class="quiz-foot">
+        ${state.qi > 0 ? `<button class="backlink" data-act="prev">← 上一题</button>` : `<span></span>`}
+        <button class="backlink" data-act="reset">↺ 重置并回到首页</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function ringHTML(pct, uid){
+  const R = 40, C = 2 * Math.PI * R, off = C * (1 - pct / 100);
+  return `
+  <div class="ring">
+    <svg width="104" height="104" viewBox="0 0 104 104">
+      <circle cx="52" cy="52" r="${R}" fill="none" stroke="rgba(255,188,215,.4)" stroke-width="7"/>
+      <circle cx="52" cy="52" r="${R}" fill="none" stroke="url(#rg${uid})" stroke-width="7" stroke-linecap="round"
+        stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}"/>
+      <defs><linearGradient id="rg${uid}" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffb3d1"/><stop offset="1" stop-color="#c9568a"/>
+      </linearGradient></defs>
+    </svg>
+    <div class="val"><b>${pct}<i>%</i></b><span>契合度</span></div>
+  </div>`;
+}
+
+function perfumeCardHTML(item, f, isSecond){
+  const p = item.p;
+  /* 这支香的主轴方向 */
+  const own = Object.keys(p.w).sort((a, b) => p.w[b] - p.w[a])[0];
+  const ownLabel = f.axes[own] || '';
+  return `
+  <article class="pcard${isSecond ? ' second' : ''}">
+    <div class="pc-top">
+      <div style="min-width:240px;flex:1">
+        <span class="pc-badge">${isSecond ? '◆ 第二推荐 · 另一条路线' : '★ 首选推荐'} · ${f.icon} ${f.name}</span>
+        <h3 class="pc-name">${p.n}${p.en ? `<em>${p.en}</em>` : ''}</h3>
+        <p class="pc-brand">${p.b} · ${p.year} 年推出</p>
+        <div class="pc-meta">
+          <i>${p.type}</i><i>${p.conc}</i><i>${p.gender}</i><i class="gold">${p.price}</i>
+        </div>
+      </div>
+      ${ringHTML(item.pct, isSecond ? 2 : 1)}
+    </div>
+    <div class="pyramid">
+      <div class="pr top-A"><b>前调</b><span>${p.top}</span></div>
+      <div class="pr top-B"><b>中调</b><span>${p.heart}</span></div>
+      <div class="pr top-C"><b>后调</b><span>${p.base}</span></div>
+    </div>
+    <p class="pc-desc">${p.desc}</p>
+    <div class="pc-cols">
+      <div class="pc-col">
+        <h4>为什么适合你</h4>
+        <p>你的香气画像偏向「${ownLabel}」，而 ${p.n} 的主导方向正是它。${p.why}</p>
+      </div>
+      <div class="pc-col">
+        <h4>穿着建议</h4>
+        <p>${p.tip}</p>
+      </div>
+      <div class="pc-col">
+        <h4>相似方向</h4>
+        <p>${p.similar}</p>
+      </div>
+    </div>
+  </article>`;
+}
+
+function viewResult(f){
+  const { ranked, profile, maxV } = state.result;
+  const top = ranked[0];
+  const second = ranked[1];
+  const twoRec = second && (second.ratio >= top.ratio * 0.82 || second.pct >= top.pct - 6);
+  const others = ranked.slice(twoRec ? 2 : 1, (twoRec ? 2 : 1) + 3);
+  const topAxes = profile.filter(x => x.v > 0).slice(0, 2).map(x => x.label);
+  const profileText = topAxes.length ? topAxes.join(' × ') : Object.keys(f.axes).slice(0, 2).map(a => f.axes[a]).join(' × ');
+
+  return `
+  <div class="view">
+    <div class="result-head">
+      <span class="eyebrow">${f.icon} ${f.name} · 测试完成</span>
+      <h2>你的香气画像是「${profileText}」</h2>
+      <p>${twoRec
+        ? '你的偏好落在这个香调里两条相邻的路线上，所以下面两支都值得试——它们共享同一片气质，只是温度不同。'
+        : `在这个香调里，你的答案相当集中地指向了一种气质，所以我们只推荐一支：它几乎就是为你准备的。`}</p>
+    </div>
+
+    <div class="profile">
+      <div class="panel">
+        <h3>你的四个方向分布</h3>
+        <div class="axisbar">
+          ${profile.map((x, i) => `
+            <div class="row${i === 0 ? ' top' : ''}">
+              <span class="lbl"><span>${x.label}</span><em>${x.v > 0 ? Math.round(x.v / maxV * 100) + '%' : '—'}</em></span>
+              <span class="track"><span style="width:${x.v > 0 ? Math.max(6, x.v / maxV * 100) : 2}%"></span></span>
+            </div>`).join('')}
+        </div>
+      </div>
+      <div class="panel">
+        <h3>接下来怎么看</h3>
+        <div class="axes-list">
+          <div><b></b><span>香水在皮肤上会变，务必在<strong>自己皮肤上</strong>试，并留出 30 分钟以上看中后调。</span></div>
+          <div><b></b><span>同香调内不同浓度的表现差别很大：EDT 更清透、EDP 更饱满、香精（Parfum）最厚重，建议先试 EDT/EDP。</span></div>
+          <div><b></b><span>契合度是「与你答案的匹配程度」，不是品质高低；同一支香，换个人测结果会完全不同。</span></div>
+        </div>
+      </div>
+    </div>
+
+    ${perfumeCardHTML(top, f, false)}
+    ${twoRec ? perfumeCardHTML(second, f, true) : ''}
+
+    ${others.length ? `
+    <section class="others">
+      <h3>同香调里其余的代表作（方向不同，也可以了解）</h3>
+      <div class="pv-grid">
+        ${others.map(o => `
+          <div class="pv">
+            <h5>${o.p.n}</h5>
+            <span>${o.p.b} · ${o.p.year} · ${o.p.conc}</span>
+            <span style="color:var(--plum-3)">${o.p.one}</span>
+            <i>${o.p.type}</i>
+          </div>`).join('')}
+      </div>
+    </section>` : ''}
+
+    <div class="result-actions">
+      <button class="btn btn-primary" data-act="start" data-id="${f.id}">↻ 重新测试这只香调</button>
+      <button class="btn btn-ghost" data-act="open" data-id="${f.id}">阅读 ${f.name}介绍</button>
+      <button class="btn btn-ghost" data-act="home">换一个香调</button>
+      <button class="btn btn-ghost" data-act="reset">↺ 重置全部</button>
+    </div>
+  </div>`;
+}
+
+/* =========================================================
+   渲染
+   ========================================================= */
+function render(){
+  const f = state.fid ? findF(state.fid) : null;
+  let html = '';
+  if(state.view === 'home') html = viewHome();
+  else if(state.view === 'family' && f) html = viewFamily(f);
+  else if(state.view === 'quiz' && f) html = viewQuiz(f);
+  else if(state.view === 'result' && f) html = viewResult(f);
+  else html = viewHome();
+  app.innerHTML = html;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce) window.scrollTo({ top:0, behavior:'smooth' });
+  else window.scrollTo(0, 0);
+}
+
+function goHome(){
+  state.view = 'home'; state.fid = null; state.qi = 0; state.answers = []; state.result = null; state.busy = false;
+  render();
+}
+
+function openFamily(id){
+  state.view = 'family'; state.fid = id; state.qi = 0; state.answers = []; state.result = null; state.busy = false;
+  render();
+}
+
+function startQuiz(id){
+  state.view = 'quiz'; state.fid = id; state.qi = 0; state.answers = []; state.result = null; state.busy = false;
+  render();
+}
+
+function pickOption(i){
+  if(state.busy) return;
+  state.busy = true;
+  const f = findF(state.fid);
+  state.answers[state.qi] = i;
+  const el = app.querySelector(`.opt[data-i="${i}"]`);
+  if(el) el.classList.add('picked');
+  const last = state.qi >= f.questions.length - 1;
+  setTimeout(() => {
+    if(last){
+      state.result = computeResult(f, state.answers);
+      state.view = 'result';
+    } else {
+      state.qi++;
+    }
+    state.busy = false;
+    render();
+  }, 300);
+}
+
+/* =========================================================
+   事件（委托）
+   ========================================================= */
+app.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]');
+  if(!el) return;
+  const act = el.dataset.act;
+  const id = el.dataset.id;
+  if(act === 'home')      goHome();
+  else if(act === 'reset') goHome();
+  else if(act === 'open')  openFamily(id);
+  else if(act === 'start') startQuiz(id);
+  else if(act === 'pick')  pickOption(Number(el.dataset.i));
+  else if(act === 'prev'){
+    if(state.qi > 0){ state.qi--; state.answers.length = state.qi + 1; render(); }
+  }
+  else if(act === 'scrollGrid'){
+    const g = document.getElementById('grid');
+    if(g) g.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+  else if(act === 'random'){
+    const f = FAMILIES[Math.floor(Math.random() * FAMILIES.length)];
+    openFamily(f.id);
+  }
+});
+document.querySelector('.topbar').addEventListener('click', e => {
+  const el = e.target.closest('[data-act]');
+  if(!el) return;
+  if(el.dataset.act === 'home' || el.dataset.act === 'reset') goHome();
+});
+/* 键盘 1-4 / A-D 快速作答 */
+document.addEventListener('keydown', e => {
+  if(state.view !== 'quiz' || state.busy) return;
+  const f = findF(state.fid); if(!f) return;
+  const k = e.key.toUpperCase();
+  const idx = ['1','2','3','4','5'].indexOf(k) >= 0 ? ['1','2','3','4','5'].indexOf(k) : LETTERS.indexOf(k);
+  if(idx >= 0 && idx < f.questions[state.qi].options.length) pickOption(idx);
+  if(e.key === 'Escape') goHome();
+});
+
+render();
+</script>
+</body>
+</html>
