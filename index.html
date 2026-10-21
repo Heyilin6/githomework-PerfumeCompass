@@ -224,6 +224,57 @@ main{position:relative;z-index:3;width:min(1180px,92vw);margin:0 auto;padding-bo
 .others h3{font-family:var(--serif);font-size:16px;letter-spacing:.1em;font-weight:600;margin-bottom:14px}
 .others .pv-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
 .result-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:38px}
+/* ---------- 测试记录 ---------- */
+.nav .badge{display:inline-grid;place-items:center;min-width:17px;height:17px;padding:0 5px;margin-left:6px;
+  border-radius:999px;background:linear-gradient(135deg,#f08cb2,#c9568a);color:#fff;font-size:10.5px;
+  font-weight:600;font-style:normal;line-height:1;vertical-align:1px;box-shadow:0 4px 10px -4px rgba(200,86,138,.9)}
+.nav .badge.hide{display:none}
+.hstrip{margin:4px 0 32px;border-radius:22px;padding:18px 20px;
+  background:linear-gradient(150deg,rgba(255,255,255,.9),rgba(255,238,246,.75));
+  border:1px solid #fff;box-shadow:var(--sh-soft);backdrop-filter:blur(8px)}
+.hs-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.hs-head h3{font-family:var(--serif);font-size:14.5px;font-weight:600;letter-spacing:.1em}
+.hs-head button{font:inherit;font-size:12px;background:none;border:0;color:var(--rose-deep);cursor:pointer;letter-spacing:.06em;transition:.24s}
+.hs-head button:hover{color:var(--rose-dark);letter-spacing:.12em}
+.hs-items{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px}
+.hs-item{flex:none;text-align:left;font:inherit;cursor:pointer;border:1px solid rgba(255,188,215,.6);border-radius:16px;
+  padding:12px 15px;background:rgba(255,255,255,.78);transition:.26s cubic-bezier(.22,.9,.28,1);min-width:176px;color:var(--plum)}
+.hs-item:hover{background:#fff;transform:translateY(-3px);box-shadow:var(--sh-soft);border-color:var(--rose)}
+.hs-item .t{font-size:11px;color:var(--plum-3);letter-spacing:.04em}
+.hs-item .f{font-family:var(--serif);font-size:13.5px;margin-top:6px;letter-spacing:.04em;display:flex;gap:6px;align-items:center}
+.hs-item .n{font-size:12.5px;color:var(--rose-dark);margin-top:8px;line-height:1.6}
+.hs-item .p{font-size:11px;color:var(--plum-3);margin-top:3px;letter-spacing:.02em}
+.hist-wrap{max-width:830px;margin:18px auto 0}
+.hist-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+.hist-head h2{font-family:var(--serif);font-size:clamp(21px,3vw,27px);font-weight:600;letter-spacing:.06em}
+.hist-head p{font-size:12.5px;color:var(--plum-3);margin-top:9px;line-height:1.85;max-width:520px}
+.hist-item2{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;
+  border-radius:20px;padding:18px 20px;margin-bottom:12px;
+  background:linear-gradient(155deg,rgba(255,255,255,.95),rgba(255,240,247,.78));
+  border:1px solid #fff;box-shadow:var(--sh-soft);transition:.28s}
+.hist-item2:hover{box-shadow:var(--sh);transform:translateY(-2px)}
+.hi-left{flex:1;min-width:215px}
+.hi-idx{font-family:var(--en);font-size:11px;letter-spacing:.22em;color:var(--rose-deep)}
+.hi-fam{font-family:var(--serif);font-size:16px;font-weight:600;letter-spacing:.06em;margin-top:5px;display:flex;align-items:center;gap:8px}
+.hi-fam em{font-family:var(--en);font-style:italic;font-size:11.5px;color:var(--rose-deep);letter-spacing:.08em}
+.hi-pic{font-size:12.5px;color:var(--plum-2);margin-top:8px;line-height:1.7}
+.hi-picks{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.hi-pick{font-size:12px;padding:6px 12px;border-radius:999px;background:rgba(255,188,215,.26);color:var(--rose-dark);
+  display:inline-flex;align-items:center;gap:6px;line-height:1.5}
+.hi-pick b{font-weight:600}
+.hi-pick i{font-style:normal;font-family:var(--en);font-size:11.5px;opacity:.85}
+.hi-right{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.hi-time{font-size:11.5px;color:var(--plum-3);letter-spacing:.04em}
+.hi-btns{display:flex;gap:8px}
+.minibtn{font:inherit;font-size:12px;padding:7px 15px;border-radius:999px;cursor:pointer;border:1px solid var(--pink-200);
+  background:rgba(255,255,255,.92);color:var(--plum-2);transition:.24s;white-space:nowrap}
+.minibtn:hover{border-color:var(--rose);color:var(--rose-dark);transform:translateY(-1px)}
+.minibtn.danger:hover{border-color:#dc8b86;color:#ae4b46}
+.empty{text-align:center;padding:56px 24px;border-radius:24px;border:1px dashed var(--pink-300);background:rgba(255,255,255,.62)}
+.empty .big{font-size:34px;line-height:1}
+.empty p{font-size:13.5px;color:var(--plum-2);margin-top:16px;line-height:1.95}
+.hint-line{font-size:12px;color:var(--plum-3);letter-spacing:.04em;display:inline-flex;align-items:center;gap:6px}
+@media(max-width:560px){.hi-right{align-items:flex-start;flex-direction:row;justify-content:space-between;width:100%}}
 footer{position:relative;z-index:3;text-align:center;padding:26px 20px 40px;font-size:12px;color:var(--plum-3);line-height:1.9;letter-spacing:.04em}
 footer b{color:var(--rose-deep);font-weight:600;font-family:var(--serif)}
 @media(max-width:560px){
@@ -258,6 +309,7 @@ footer b{color:var(--rose-deep);font-weight:600;font-family:var(--serif)}
     </span>
   </button>
   <nav class="nav">
+    <button class="chipbtn" data-act="history">记录<i class="badge hide" id="histBadge">0</i></button>
     <button class="chipbtn" data-act="home">香调总览</button>
     <button class="chipbtn" data-act="reset">↺ 重置</button>
   </nav>
@@ -1437,11 +1489,116 @@ const FAMILIES = [
 /* =========================================================
    状态与工具
    ========================================================= */
-const state = { view:'home', fid:null, qi:0, answers:[], result:null, busy:false };
+const state = { view:'home', fid:null, qi:0, answers:[], result:null, busy:false,
+                restored:false, recId:null, restoredAt:null };
 const app = document.getElementById('app');
 const findF = id => FAMILIES.find(f => f.id === id);
 const LETTERS = ['A','B','C','D','E'];
-let lastFocus = null;
+
+/* =========================================================
+   品牌中文名（统一在所有展示位置使用「中文名 原名」）
+   ========================================================= */
+const BRAND_CN = {
+  'Marc Jacobs':'马克·雅各布斯',
+  'Jo Malone London':'祖玛珑',
+  'Diptyque':'蒂普提克',
+  'Chanel':'香奈儿',
+  'Frédéric Malle':'馥马尔',
+  'Yves Saint Laurent':'圣罗兰',
+  'Byredo':'百瑞德',
+  'Lancôme':'兰蔻',
+  'Prada':'普拉达',
+  'Mugler':'蒂埃里·穆勒',
+  'Tom Ford':'汤姆·福特',
+  'Acqua di Parma':'帕尔玛之水',
+  'Atelier Cologne':'欧珑',
+  'Hermès':'爱马仕',
+  'Giorgio Armani':'阿玛尼',
+  'Issey Miyake':'三宅一生',
+  'Davidoff':'大卫杜夫',
+  'Dolce & Gabbana':'杜嘉班纳',
+  'Sisley':'希思黎',
+  'Caron':'卡朗',
+  'Guerlain':'娇兰',
+  'Bvlgari':'宝格丽',
+  'Dior':'迪奥',
+  'Jean Paul Gaultier':'高缇耶',
+  'Azzaro':'阿莎罗',
+  'Bottega Veneta':'葆蝶家',
+  'Le Labo':'香水实验室',
+  'Maison Margiela Replica':'马丁·马吉拉',
+  'Serge Lutens':'芦丹氏'
+};
+const brandCN   = p => BRAND_CN[p.b] || p.b;
+const brandLine = p => brandCN(p) + ' ' + p.b;
+/* 品牌中文名 + 其它信息拼一行，供卡片使用 */
+const brandMeta = p => `${brandLine(p)} · ${p.year} · ${p.conc}`;
+
+/* =========================================================
+   测试记录：保存最近 5 次结果（本机 localStorage，失败时退回内存）
+   ========================================================= */
+const HKEY = 'perfume-compass.history.v1';
+const HMAX = 5;
+let storageOK = true;
+try{ localStorage.setItem('__pc_probe', '1'); localStorage.removeItem('__pc_probe'); }
+catch(e){ storageOK = false; }
+let memHistory = [];
+
+function readHistory(){
+  if(storageOK){
+    try{
+      const raw = localStorage.getItem(HKEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      if(Array.isArray(arr)) return arr.filter(r => r && r.fid && Array.isArray(r.answers)).slice(0, HMAX);
+    }catch(e){ /* 数据损坏则视为空 */ }
+  }
+  return memHistory.slice();
+}
+
+function writeHistory(list){
+  const slim = list.slice(0, HMAX);
+  memHistory = slim;
+  if(storageOK){
+    try{ localStorage.setItem(HKEY, JSON.stringify(slim)); }
+    catch(e){ storageOK = false; }
+  }
+  syncNavBadge(slim.length);
+}
+
+function pushHistory(rec){
+  const list = readHistory();
+  list.unshift(rec);
+  writeHistory(list);
+}
+
+function removeHistory(id){
+  writeHistory(readHistory().filter(r => r.id !== id));
+}
+
+function clearHistory(){
+  writeHistory([]);
+}
+
+function syncNavBadge(n){
+  const el = document.getElementById('histBadge');
+  if(!el) return;
+  const len = (n === undefined) ? readHistory().length : n;
+  el.textContent = len;
+  el.classList.toggle('hide', len === 0);
+}
+
+/* 记录时间显示 */
+function fmtTime(ts){
+  const d = new Date(ts), now = new Date();
+  const p2 = n => String(n).padStart(2, '0');
+  const diff = (now - d) / 1000;
+  if(diff < 60) return '刚刚';
+  if(diff < 3600) return Math.floor(diff / 60) + ' 分钟前';
+  const yst = new Date(now.getTime() - 864e5);
+  if(d.toDateString() === now.toDateString()) return '今天 ' + p2(d.getHours()) + ':' + p2(d.getMinutes());
+  if(d.toDateString() === yst.toDateString()) return '昨天 ' + p2(d.getHours()) + ':' + p2(d.getMinutes());
+  return (d.getMonth() + 1) + '月' + d.getDate() + '日 ' + p2(d.getHours()) + ':' + p2(d.getMinutes());
+}
 
 /* ---- 打分：把答案映射到四个方向轴，再与每支香的权重做点积 ---- */
 function computeResult(f, answers){
@@ -1477,10 +1634,25 @@ function computeResult(f, answers){
   return { ranked, profile, maxV, score };
 }
 
+/* 决定推荐 1 支还是 2 支：次选足够接近时同时推荐 */
+function pickTwo(result){
+  const top = result.ranked[0], second = result.ranked[1];
+  const two = second && (second.ratio >= top.ratio * 0.82 || second.pct >= top.pct - 6);
+  return two ? [top, second] : [top];
+}
+
+/* 用户香气画像文案（用于结果页与记录） */
+function profileTextOf(result, f){
+  const labels = result.profile.filter(x => x.v > 0).slice(0, 2).map(x => x.label);
+  if(labels.length) return labels.join(' × ');
+  return Object.keys(f.axes).slice(0, 2).map(a => f.axes[a]).join(' × ');
+}
+
 /* =========================================================
    视图
    ========================================================= */
 function viewHome(){
+  const hist = readHistory();
   return `
   <section class="hero view">
     <span class="eyebrow">12 大香调 · 12 套专属测试</span>
@@ -1491,15 +1663,36 @@ function viewHome(){
       <button class="btn btn-primary" data-act="random">✨ 帮我随机挑一个香调</button>
       <button class="btn btn-ghost" data-act="scrollGrid">看看全部香调</button>
     </div>
-    <div class="hero-notes"><span>57 支代表香水</span><span>60 道香调专属问题</span><span>随时可重置</span></div>
+    <div class="hero-notes"><span>57 支代表香水</span><span>60 道香调专属问题</span><span>记录最近 5 次</span></div>
   </section>
+  ${hist.length ? historyStripHTML(hist) : ''}
   <section class="grid view" id="grid">${FAMILIES.map(cardHTML).join('')}</section>
   <section class="panel view" style="margin-top:34px">
     <h3>怎么用这个小测试？</h3>
     <div class="axes-list">
       <div><b></b><span>不确定自己属于哪个香调？先点开任意一个香调读它的「总体介绍」，觉得心动就进去做测试。</span></div>
       <div><b></b><span>测试题均为该香调量身设计，比如花香调问「你希望花香像清晨野花还是夜里盛开的白花」，皮革调问「干净的麂皮手套还是壁炉里的烟」。</span></div>
-      <div><b></b><span>结果会给出 1–2 支推荐香水，含品牌、年份、浓度、价位区间、前中后调与契合度；可随时重测或换个香调，也可以一键重置回到首页。</span></div>
+      <div><b></b><span>结果会给出 1–2 支推荐香水，含品牌中文名与原名、年份、浓度、价位区间、前中后调与契合度；每做一次测试都会自动存入「记录」，最多保留最近 5 次。</span></div>
+    </div>
+  </section>`;
+}
+
+/* 首页顶部的「最近记录」横条 */
+function historyStripHTML(hist){
+  return `
+  <section class="hstrip view">
+    <div class="hs-head">
+      <h3>最近的测试记录 · ${hist.length} / ${HMAX}</h3>
+      <button data-act="history">查看全部记录 →</button>
+    </div>
+    <div class="hs-items">
+      ${hist.map(r => `
+        <button class="hs-item" data-act="rec" data-rec="${r.id}">
+          <span class="t">${fmtTime(r.ts)}</span>
+          <span class="f">${r.ficon || '✦'} ${r.fname}</span>
+          <span class="n">${(r.picks || []).map(p => p.n).join(' · ') || '—'}</span>
+          <span class="p">${(r.picks || []).map(p => p.bcn || p.b).join(' · ')}</span>
+        </button>`).join('')}
     </div>
   </section>`;
 }
@@ -1555,7 +1748,7 @@ function viewFamily(f){
         ${f.perfumes.map(p => `
           <div class="pv">
             <h5>${p.n}</h5>
-            <span>${p.b} · ${p.year} · ${p.conc}</span>
+            <span>${brandMeta(p)}</span>
             <i>${p.type}</i>
           </div>`).join('')}
       </div>
@@ -1616,7 +1809,7 @@ function perfumeCardHTML(item, f, isSecond){
       <div style="min-width:240px;flex:1">
         <span class="pc-badge">${isSecond ? '◆ 第二推荐 · 另一条路线' : '★ 首选推荐'} · ${f.icon} ${f.name}</span>
         <h3 class="pc-name">${p.n}${p.en ? `<em>${p.en}</em>` : ''}</h3>
-        <p class="pc-brand">${p.b} · ${p.year} 年推出</p>
+        <p class="pc-brand">${brandLine(p)} · ${p.year} 年推出</p>
         <div class="pc-meta">
           <i>${p.type}</i><i>${p.conc}</i><i>${p.gender}</i><i class="gold">${p.price}</i>
         </div>
@@ -1648,12 +1841,12 @@ function perfumeCardHTML(item, f, isSecond){
 
 function viewResult(f){
   const { ranked, profile, maxV } = state.result;
-  const top = ranked[0];
-  const second = ranked[1];
-  const twoRec = second && (second.ratio >= top.ratio * 0.82 || second.pct >= top.pct - 6);
-  const others = ranked.slice(twoRec ? 2 : 1, (twoRec ? 2 : 1) + 3);
-  const topAxes = profile.filter(x => x.v > 0).slice(0, 2).map(x => x.label);
-  const profileText = topAxes.length ? topAxes.join(' × ') : Object.keys(f.axes).slice(0, 2).map(a => f.axes[a]).join(' × ');
+  const picks = pickTwo(state.result);
+  const top = picks[0];
+  const second = picks[1];
+  const twoRec = picks.length > 1;
+  const others = ranked.slice(picks.length, picks.length + 3);
+  const profileText = profileTextOf(state.result, f);
 
   return `
   <div class="view">
@@ -1663,6 +1856,9 @@ function viewResult(f){
       <p>${twoRec
         ? '你的偏好落在这个香调里两条相邻的路线上，所以下面两支都值得试——它们共享同一片气质，只是温度不同。'
         : `在这个香调里，你的答案相当集中地指向了一种气质，所以我们只推荐一支：它几乎就是为你准备的。`}</p>
+      <p class="hint-line" style="margin-top:14px">${state.restored
+        ? '⟲ 正在查看一条历史记录 · ' + fmtTime(state.restoredAt || Date.now())
+        : '✓ 本次结果已自动存入「记录」，最多保留最近 5 次'}</p>
     </div>
 
     <div class="profile">
@@ -1696,7 +1892,7 @@ function viewResult(f){
         ${others.map(o => `
           <div class="pv">
             <h5>${o.p.n}</h5>
-            <span>${o.p.b} · ${o.p.year} · ${o.p.conc}</span>
+            <span>${brandMeta(o.p)}</span>
             <span style="color:var(--plum-3)">${o.p.one}</span>
             <i>${o.p.type}</i>
           </div>`).join('')}
@@ -1706,9 +1902,53 @@ function viewResult(f){
     <div class="result-actions">
       <button class="btn btn-primary" data-act="start" data-id="${f.id}">↻ 重新测试这只香调</button>
       <button class="btn btn-ghost" data-act="open" data-id="${f.id}">阅读 ${f.name}介绍</button>
+      <button class="btn btn-ghost" data-act="history">🕮 查看测试记录</button>
       <button class="btn btn-ghost" data-act="home">换一个香调</button>
-      <button class="btn btn-ghost" data-act="reset">↺ 重置全部</button>
+      <button class="btn btn-ghost" data-act="reset">↺ 重置本次测试</button>
     </div>
+  </div>`;
+}
+
+/* =========================================================
+   测试记录页
+   ========================================================= */
+function viewHistory(){
+  const hist = readHistory();
+  return `
+  <div class="view hist-wrap">
+    <button class="backlink" data-act="home">← 返回首页</button>
+    <div class="hist-head" style="margin-top:14px">
+      <div>
+        <h2>最近的测试记录</h2>
+        <p>每次完成测试都会自动存入，只保留最近 ${HMAX} 次（当前 ${hist.length} 条）。记录保存在这台设备的浏览器里，不会上传到任何地方。${storageOK ? '' : '<br><b style="color:#b04a45">当前浏览器禁用了本地存储，记录仅在本次打开页面期间有效。</b>'}</p>
+      </div>
+      ${hist.length ? `<div class="hi-btns"><button class="minibtn danger" data-act="clearRec">清空全部记录</button></div>` : ''}
+    </div>
+    ${hist.length ? hist.map((r, i) => `
+      <div class="hist-item2">
+        <div class="hi-left">
+          <div class="hi-idx">No.${String(hist.length - i).padStart(2, '0')}</div>
+          <div class="hi-fam">${r.ficon || '✦'} ${r.fname}<em>${(findF(r.fid) || {}).en || ''}</em></div>
+          <div class="hi-pic">香气画像：${r.picture || '—'}</div>
+          <div class="hi-picks">
+            ${(r.picks || []).map(p => `
+              <span class="hi-pick"><b>${p.n}</b><i>${p.bcn || p.b}</i><i>${p.pct}%</i></span>`).join('')}
+          </div>
+        </div>
+        <div class="hi-right">
+          <span class="hi-time">${fmtTime(r.ts)}</span>
+          <div class="hi-btns">
+            <button class="minibtn" data-act="rec" data-rec="${r.id}">查看结果</button>
+            <button class="minibtn danger" data-act="delRec" data-rec="${r.id}">删除</button>
+          </div>
+        </div>
+      </div>`).join('') : `
+      <div class="empty">
+        <div class="big">🕮</div>
+        <p>还没有测试记录。<br>完成一次香调测试后，结果会自动保存在这里。</p>
+        <div style="margin-top:22px"><button class="btn btn-primary" data-act="home">去挑一个香调</button></div>
+      </div>`}
+    ${hist.length ? `<div class="hint-line" style="margin-top:22px">提示：点「查看结果」可以重新打开那次测试的完整推荐与香调表。</div>` : ''}
   </div>`;
 }
 
@@ -1719,28 +1959,56 @@ function render(){
   const f = state.fid ? findF(state.fid) : null;
   let html = '';
   if(state.view === 'home') html = viewHome();
+  else if(state.view === 'history') html = viewHistory();
   else if(state.view === 'family' && f) html = viewFamily(f);
   else if(state.view === 'quiz' && f) html = viewQuiz(f);
   else if(state.view === 'result' && f) html = viewResult(f);
   else html = viewHome();
   app.innerHTML = html;
+  syncNavBadge();
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(!reduce) window.scrollTo({ top:0, behavior:'smooth' });
   else window.scrollTo(0, 0);
 }
 
 function goHome(){
-  state.view = 'home'; state.fid = null; state.qi = 0; state.answers = []; state.result = null; state.busy = false;
+  state.view = 'home'; state.fid = null; state.qi = 0; state.answers = []; state.result = null;
+  state.busy = false; state.restored = false; state.recId = null; state.restoredAt = null;
+  render();
+}
+
+function openHistory(){
+  state.view = 'history'; state.fid = null; state.qi = 0; state.answers = [];
+  state.result = null; state.busy = false; state.restored = false;
+  render();
+}
+
+/* 打开一条历史记录：用保存的答案重新计算，得到完整结果页 */
+function openRecord(recId){
+  const rec = readHistory().find(r => r.id === recId);
+  const f = rec && findF(rec.fid);
+  if(!rec || !f){ openHistory(); return; }
+  state.fid = f.id;
+  state.answers = rec.answers.slice();
+  state.qi = f.questions.length - 1;
+  state.result = computeResult(f, state.answers);
+  state.view = 'result';
+  state.busy = false;
+  state.restored = true;
+  state.recId = rec.id;
+  state.restoredAt = rec.ts;
   render();
 }
 
 function openFamily(id){
-  state.view = 'family'; state.fid = id; state.qi = 0; state.answers = []; state.result = null; state.busy = false;
+  state.view = 'family'; state.fid = id; state.qi = 0; state.answers = []; state.result = null;
+  state.busy = false; state.restored = false; state.recId = null;
   render();
 }
 
 function startQuiz(id){
-  state.view = 'quiz'; state.fid = id; state.qi = 0; state.answers = []; state.result = null; state.busy = false;
+  state.view = 'quiz'; state.fid = id; state.qi = 0; state.answers = []; state.result = null;
+  state.busy = false; state.restored = false; state.recId = null;
   render();
 }
 
@@ -1754,8 +2022,30 @@ function pickOption(i){
   const last = state.qi >= f.questions.length - 1;
   setTimeout(() => {
     if(last){
-      state.result = computeResult(f, state.answers);
+      const result = computeResult(f, state.answers);
+      state.result = result;
       state.view = 'result';
+      state.restored = false;
+      state.recId = null;
+      /* 存入最近 5 次记录 */
+      const ts = Date.now();
+      const recId = ts + '-' + Math.random().toString(36).slice(2, 7);
+      pushHistory({
+        id: recId,
+        ts,
+        fid: f.id,
+        fname: f.name,
+        ficon: f.icon,
+        answers: state.answers.slice(),
+        picture: profileTextOf(result, f),
+        picks: pickTwo(result).map(x => ({
+          n: x.p.n,
+          b: x.p.b,
+          bcn: brandCN(x.p),
+          pct: x.pct
+        }))
+      });
+      state.recId = recId;
     } else {
       state.qi++;
     }
@@ -1772,11 +2062,24 @@ app.addEventListener('click', e => {
   if(!el) return;
   const act = el.dataset.act;
   const id = el.dataset.id;
-  if(act === 'home')      goHome();
+  const rec = el.dataset.rec;
+  if(act === 'home')       goHome();
   else if(act === 'reset') goHome();
   else if(act === 'open')  openFamily(id);
   else if(act === 'start') startQuiz(id);
   else if(act === 'pick')  pickOption(Number(el.dataset.i));
+  else if(act === 'history') openHistory();
+  else if(act === 'rec')   openRecord(rec);
+  else if(act === 'delRec'){
+    removeHistory(rec);
+    render();
+  }
+  else if(act === 'clearRec'){
+    if(window.confirm('确定要清空全部测试记录吗？此操作不可恢复。')){
+      clearHistory();
+      render();
+    }
+  }
   else if(act === 'prev'){
     if(state.qi > 0){ state.qi--; state.answers.length = state.qi + 1; render(); }
   }
@@ -1792,18 +2095,25 @@ app.addEventListener('click', e => {
 document.querySelector('.topbar').addEventListener('click', e => {
   const el = e.target.closest('[data-act]');
   if(!el) return;
-  if(el.dataset.act === 'home' || el.dataset.act === 'reset') goHome();
+  const act = el.dataset.act;
+  if(act === 'home' || act === 'reset') goHome();
+  else if(act === 'history') openHistory();
 });
-/* 键盘 1-4 / A-D 快速作答 */
+/* 键盘 1-4 / A-D 快速作答；Esc 回首页 */
 document.addEventListener('keydown', e => {
-  if(state.view !== 'quiz' || state.busy) return;
+  if(state.view !== 'quiz' || state.busy){
+    if(e.key === 'Escape') goHome();
+    return;
+  }
   const f = findF(state.fid); if(!f) return;
   const k = e.key.toUpperCase();
-  const idx = ['1','2','3','4','5'].indexOf(k) >= 0 ? ['1','2','3','4','5'].indexOf(k) : LETTERS.indexOf(k);
+  const nums = ['1','2','3','4','5'];
+  const idx = nums.indexOf(k) >= 0 ? nums.indexOf(k) : LETTERS.indexOf(k);
   if(idx >= 0 && idx < f.questions[state.qi].options.length) pickOption(idx);
   if(e.key === 'Escape') goHome();
 });
 
+syncNavBadge();
 render();
 </script>
 </body>
