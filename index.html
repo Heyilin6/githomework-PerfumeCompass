@@ -89,17 +89,32 @@ main{position:relative;z-index:3;width:min(1180px,92vw);margin:0 auto;padding-bo
 .fam-card{position:relative;text-align:left;font:inherit;color:inherit;cursor:pointer;
   border:1px solid rgba(255,255,255,.9);border-radius:22px;padding:22px 20px 20px;
   background:linear-gradient(160deg,rgba(255,255,255,.92),rgba(255,240,246,.78));
-  box-shadow:var(--sh-soft);backdrop-filter:blur(10px);transition:.32s cubic-bezier(.22,.9,.28,1);
-  display:flex;flex-direction:column;gap:9px;overflow:hidden;animation:rise .5s both;animation-delay:var(--d,0ms)}
+  box-shadow:var(--sh-soft);backdrop-filter:blur(10px);
+  transition:transform .38s cubic-bezier(.22,.9,.28,1),box-shadow .38s ease,border-color .38s ease;
+  display:flex;flex-direction:column;gap:9px;overflow:hidden;
+  /* 注意：这里用 backwards 而不是 both，动画结束后交还 transform 控制权，hover 浮动才生效 */
+  animation:rise .5s cubic-bezier(.22,.9,.28,1) backwards;animation-delay:var(--d,0ms);
+  will-change:transform}
 .fam-card::before{content:'';position:absolute;inset:0;border-radius:22px;padding:1px;
   background:linear-gradient(150deg,rgba(255,188,215,.9),rgba(255,255,255,0),rgba(239,220,184,.8));
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.32s}
+  -webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.38s ease}
 .fam-card::after{content:'';position:absolute;right:-40px;top:-40px;width:120px;height:120px;border-radius:50%;
   background:radial-gradient(circle,rgba(255,188,215,.55),transparent 70%);transition:.4s}
-.fam-card:hover{transform:translateY(-7px);box-shadow:var(--sh);border-color:rgba(255,255,255,1)}
-.fam-card:hover::before{opacity:1}
-.fam-card:hover::after{transform:scale(1.35)}
+/* 悬浮：轻微上浮 + 粉色边缘发光 + 柔和阴影 */
+.fam-card:hover,.fam-card:focus-visible{
+  transform:translateY(-10px) scale(1.012);
+  border-color:rgba(255,150,196,.95);
+  box-shadow:
+    0 0 0 1px rgba(255,150,196,.6),
+    0 0 16px rgba(255,138,188,.5),
+    0 0 38px rgba(255,120,175,.32),
+    0 18px 34px -14px rgba(201,86,138,.5),
+    0 30px 56px -26px rgba(168,65,110,.55);
+  z-index:2;outline:none}
+.fam-card:hover::before,.fam-card:focus-visible::before{opacity:1}
+.fam-card:hover::after,.fam-card:focus-visible::after{transform:scale(1.35)}
+.fam-card:active{transform:translateY(-5px) scale(1.006)}
 .fc-icon{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:22px;
   background:linear-gradient(140deg,#fff,#ffe6f0);box-shadow:inset 0 0 0 1px rgba(255,255,255,.9),0 8px 16px -10px rgba(200,86,138,.7)}
 .fc-name{font-family:var(--serif);font-size:18.5px;font-weight:600;letter-spacing:.06em;display:flex;align-items:baseline;gap:8px}
@@ -108,7 +123,7 @@ main{position:relative;z-index:3;width:min(1180px,92vw);margin:0 auto;padding-bo
 .fc-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
 .fc-chips i{font-style:normal;font-size:11px;padding:4px 9px;border-radius:999px;background:rgba(255,188,215,.28);color:var(--rose-dark)}
 .fc-cta{margin-top:8px;font-size:12.5px;color:var(--rose-deep);letter-spacing:.08em;opacity:.85;transition:.3s}
-.fam-card:hover .fc-cta{letter-spacing:.16em;opacity:1}
+.fam-card:hover .fc-cta,.fam-card:focus-visible .fc-cta{letter-spacing:.16em;opacity:1}
 /* ---------- 香调详情 ---------- */
 .backlink{font:inherit;background:none;border:0;cursor:pointer;color:var(--plum-3);font-size:13px;padding:6px 0;letter-spacing:.06em;transition:.25s}
 .backlink:hover{color:var(--rose-dark)}
@@ -281,6 +296,12 @@ footer b{color:var(--rose-deep);font-weight:600;font-family:var(--serif)}
   .ring{width:88px;height:88px}
   .pyramid .pr{grid-template-columns:60px 1fr;padding:11px 13px}
   .opt{padding:14px 15px;font-size:14px}
+}
+/* 无障碍：尊重系统的“减少动态效果”设置 */
+@media(prefers-reduced-motion:reduce){
+  .fam-card{animation:none;transition:box-shadow .28s ease,border-color .28s ease}
+  .fam-card:hover,.fam-card:focus-visible,.fam-card:active{transform:none}
+  .fam-card:hover::after,.fam-card:focus-visible::after{transform:none}
 }
 </style>
 </head>
